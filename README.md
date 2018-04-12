@@ -1,1 +1,7 @@
-# repo1
+Cartella dei documenti da redigere per il progetto:
+
+ - abstract
+ - raccolta dei requisiti
+ - analisi dei requisiti
+ - vocabolario
+ - casi d'uso e scenari
