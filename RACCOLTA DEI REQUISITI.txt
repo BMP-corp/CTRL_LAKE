@@ -1,0 +1,14 @@
+RACCOLTA DEI REQUISITI
+
+Nel centro velico i clienti possono richiedere il noleggio di windsurf, barche a vela, sup, canoe. 
+All’arrivo il cliente viene registrato se non si è mai presentato prima al centro. Vengono compilati i moduli necessari.
+Al momento del noleggio viene registrato che l’attrezzatura richiesta è stata noleggiata e è possibile vedere quando tornerà disponibile. 
+Il noleggio può avvenire da solo o con istruttore sia di windsurf che di vela.
+Il cliente può prenotare l’attrezzatura telefonicamente.
+Prenotazioni con istruttori infrasettimanali richiedono un preavviso di una settimana.
+Annullamento lezione con istruttore  richiede almeno un giorno di preavviso.
+Vengono gestiti i pagamenti in contanti solo per tenerne traccia nell’applicazione.
+Noleggio lettini a fine statistico. Quanti lettini ci sono e quanti ne rimangono.
+A fine giornata una tabella riassume i guadagni derivanti dalle diverse entrate. Pulsante chiudi giornata (non c’entra).
+I clienti possono comprare bibite e il caffè.
+Il gestore può inserire le nuove quantità del magazzino.
