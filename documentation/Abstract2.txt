@@ -1,0 +1,18 @@
+ABSTRACT
+
+Leonardo Perugini
+Matteo Menzolini
+Giulia Bologna
+
+L’applicazione si occupa della gestione di alcuni servizi di un centro velico lacustre
+attraverso l’uso di un’interfaccia grafica.
+L’implementazione affronterà le problematiche inerenti al noleggio di attrezzature
+come barche e windsurf. Inoltre, sarà possibile tenere traccia delle attività sportive
+svolte presso il centro sia da privati sia con presenza di istruttore.
+Un ulteriore servizio riguarda la vendita di vari tipi di bevande e la gestione del magazzino.
+A fine giornata si potrà avere il prospetto degli incassi relativi alle attività svolte e al bar.
+Il programma è pensato per diversi tipi di utente: amministratore, staff, cliente.
+Il primo può gestire le funzionalità offerte ai tipi di utente (concedendo o revocando permessi),
+registrare i profili e le prenotazioni.
+Lo staff può visualizzare il calendario delle lezioni e la gestione del bar.
+Il cliente può effettuare o cancellare le proprie prenotazioni.
