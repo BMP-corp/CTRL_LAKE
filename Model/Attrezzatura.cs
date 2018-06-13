@@ -81,7 +81,7 @@ namespace ModelCtrlLake
                 } catch (Exception e) { throw e; }
         }
 
-        public void Libera(DateTime inizio, DateTime fine, int persone)
+        public void Libera(DateTime inizio, DateTime fine)
         {
             try
             {

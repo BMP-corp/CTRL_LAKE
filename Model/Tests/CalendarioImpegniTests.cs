@@ -28,11 +28,11 @@ namespace ModelCtrlLake.Tests
         public void AggiungiTest()
         {
             c1.Aggiungi(new DateTime(2018, 06, 15, 9, 0, 0), new DateTime(2018, 06, 15, 11, 0, 0));
-            Assert.AreEqual(1, c1.GetImpegni().Count);
+            Assert.AreEqual(1, c1.Impegni.Count);
             c1.Aggiungi(new DateTime(2018, 06, 15, 12, 0, 0), new DateTime(2018, 06, 15, 13, 0, 0));
-            Assert.AreEqual(2, c1.GetImpegni().Count);
+            Assert.AreEqual(2, c1.Impegni.Count);
             c1.Aggiungi(new DateTime(2018, 06, 16, 9, 0, 0), new DateTime(2018, 06, 16, 11, 0, 0));
-            Assert.AreEqual(3, c1.GetImpegni().Count);
+            Assert.AreEqual(3, c1.Impegni.Count);
             c1.Aggiungi(new DateTime(2018, 06, 15, 12, 0, 0), new DateTime(2018, 06, 15, 14, 0, 0)); //attesa eccezione
         }
 
@@ -43,7 +43,7 @@ namespace ModelCtrlLake.Tests
             c1.Aggiungi(new DateTime(2018, 06, 15, 9, 0, 0), new DateTime(2018, 06, 15, 11, 0, 0));
             c1.Aggiungi(new DateTime(2018, 06, 15, 12, 0, 0), new DateTime(2018, 06, 15, 13, 0, 0));
             c1.Rimuovi(new DateTime(2018, 06, 15, 9, 0, 0), new DateTime(2018, 06, 15, 11, 0, 0));
-            Assert.AreEqual(1, c1.GetImpegni().Count);
+            Assert.AreEqual(1, c1.Impegni.Count);
             c1.Rimuovi(new DateTime(2018, 06, 18, 9, 0, 0), new DateTime(2018, 06, 18, 11, 0, 0)); // attesa eccezione
         }
     }
