@@ -25,6 +25,17 @@ namespace ModelCtrlLake
             this._fine = fine;
         }
 
+        public DateTime Inizio
+        {
+            get { return this._inizio; }
+            //set { this._inizio = value; }
+        }
+        public DateTime Fine
+        {
+            get { return this._fine; }
+            //set { this._fine = value; }
+        }
+
         public bool OverlapsWith(Impegno i2)
         {
             DateTime max_inizio = DateTime.Compare(this._inizio, i2._inizio) >= 0 ? this._inizio : i2._inizio;

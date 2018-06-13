@@ -15,14 +15,19 @@ namespace ModelCtrlLake
             this._impegni = new List<Impegno>();
         }
 
-        public List<Impegno> GetImpegni ()
+        public List<Impegno> Impegni
         {
-            return this._impegni;
+            get { return _impegni; }
         }
 
-        public Impegno getImpegno (DateTime inizio, DateTime fine)
+        public Impegno GetImpegno (DateTime inizio, DateTime fine)
         {
-            Impegno res = null, i2=new Impegno(inizio, fine);
+            Impegno res = null, i2 = null;
+            try
+            {
+                i2 = new Impegno(inizio, fine);
+            } catch (Exception e) { throw e; }
+
             
             foreach (Impegno i in this._impegni)
                 if (i.Equals(i2))
@@ -35,8 +40,10 @@ namespace ModelCtrlLake
         public void Aggiungi(DateTime inizio, DateTime fine)
         {
             Impegno imp = null;
-            try { imp = new Impegno(inizio, fine); }
-            catch (Exception e) { throw e; }
+            try
+            {
+                imp = new Impegno(inizio, fine);
+            } catch (Exception e) { throw e; }
             bool overlaps = false;
             foreach (Impegno i in this._impegni)
                 if (i.OverlapsWith(imp))
@@ -52,11 +59,19 @@ namespace ModelCtrlLake
         public void Rimuovi(DateTime inizio, DateTime fine)
         {
             Impegno imp = null;
-            imp = this.getImpegno(inizio, fine);
+            imp = this.GetImpegno(inizio, fine);
             if (!this._impegni.Remove(imp))
                 throw new Exception("Impegno non presente in lista!");
         }
 
+        public int ProssimiImpegni()    // restituisce il numero degli impegni ancora da svolgere
+        {
+            int result = 0;
+            foreach (Impegno i in this._impegni)
+                if (DateTime.Now.CompareTo(i.Inizio) <= 0)
+                    result++;
+            return result;
+        }
 
     }
 
