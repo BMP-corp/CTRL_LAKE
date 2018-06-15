@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ModelCtrlLake
 {
@@ -21,7 +18,7 @@ namespace ModelCtrlLake
             _impegni = new CalendarioImpegni();
         }
 
-        public Attrezzatura() { }
+        public Attrezzatura() { _impegni = new CalendarioImpegni(); }
 
         public string Tipo
         {
