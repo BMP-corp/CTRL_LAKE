@@ -7,4 +7,5 @@ Cartella documents: documenti da redigere per il progetto:
    
 Cartella Model : classi c# del dominio e relativi test:
     - Impegno
-    -CalendarioImpegni
+    - CalendarioImpegni
+    - Attrezzatura
