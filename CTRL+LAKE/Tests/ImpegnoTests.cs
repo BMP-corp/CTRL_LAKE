@@ -2,7 +2,7 @@
 using System;
 using CTRL_LAKE.Models;
 
-namespace ModelCtrlLake.Tests
+namespace CTRL_LAKE.Tests
 {
     [TestClass()]
     public class ImpegnoTests

@@ -4,7 +4,7 @@ using System;
 using System.Linq;
 
 
-namespace ModelCtrlLake.Tests
+namespace CTRL_LAKE.Tests
 {
     [TestClass()]
     public class IstruttoreTests
