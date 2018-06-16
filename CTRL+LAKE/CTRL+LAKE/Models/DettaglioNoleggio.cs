@@ -90,5 +90,12 @@ namespace CTRL_LAKE.Models
             result = "ID: " + _id + " ATTREZZATURA: " + _attrezzatura + " UTILIZZATORI: " + _utilizzatori;
             return result;
         }
+
+        public bool OverlapsWith(DettaglioNoleggio dettaglio)
+        {
+            if (dettaglio.getId == this._id)
+                return true;
+            else return false;
+        }
     }
 }
