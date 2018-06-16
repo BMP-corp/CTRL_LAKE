@@ -13,12 +13,13 @@ namespace CTRL_LAKE.Models
         private DateTime _fine;
         private int _partecipanti;
         private Cliente _cliente;
+        private double _costo;
 
-        public Lezione(int id, Istruttore istruttore, DateTime inizio, DateTime fine, int partecipanti, Cliente cliente)
+        public Lezione(int id, Istruttore istruttore, DateTime inizio, DateTime fine, int partecipanti, Cliente cliente, double costo)
         {
 
             if (inizio.CompareTo(fine) >= 0)
-                throw new Exception("Impossibile creare impegno: intervallo non valido");
+                throw new Exception("Impossibile creare lezione: intervallo non valido");
             if (inizio.TimeOfDay.CompareTo(new TimeSpan(9, 0, 0)) < 0
                 || fine.TimeOfDay.CompareTo(new TimeSpan(19, 0, 0)) > 0)
                 throw new Exception("Impossibile creare lezione: orari non possibili");
@@ -26,6 +27,8 @@ namespace CTRL_LAKE.Models
                 throw new Exception("Impossibile creare lezione: non ammessi inizio e fine in due giorni distinti");
             if (partecipanti <= 0 || partecipanti > 5)
                 throw new Exception("Impossibile creare lezione: numero partecipanti non valido");
+            if (costo <= 0)
+                throw new Exception("Impossibile creare lezione: costo non valido");
             
             _id = id;
             _istruttore = istruttore;
@@ -33,6 +36,8 @@ namespace CTRL_LAKE.Models
             _fine = fine;
             _partecipanti = partecipanti;
             _cliente = cliente;
+            _costo = costo;
+
         }
 
         public int Id
@@ -41,10 +46,7 @@ namespace CTRL_LAKE.Models
             {
                 return _id;
             }
-            set
-            {
-                _id = value;
-            }
+            set{_id = value;}
         }
 
         public Istruttore Istruttore
@@ -53,10 +55,7 @@ namespace CTRL_LAKE.Models
             {
                 return _istruttore;
             }
-            set
-            {
-                _istruttore = value;
-            }
+            set{ _istruttore = value;}
         }
 
         public DateTime Inizio
@@ -65,10 +64,7 @@ namespace CTRL_LAKE.Models
             {
                 return _inizio;
             }
-            set
-            {
-                _inizio = value;
-            }
+            set{_inizio = value;}
         }
 
         public DateTime Fine
@@ -77,10 +73,7 @@ namespace CTRL_LAKE.Models
             {
                 return _fine;
             }
-            set
-            {
-                _fine = value;
-            }
+            set{ _fine = value;}
         }
 
         public Cliente Cliente
@@ -108,14 +101,24 @@ namespace CTRL_LAKE.Models
             }
         }
 
+        //Calcola costo si potrebbe eliminare in quanto equivalente al get 
         public double CalcolaCosto()
         {
-            throw new NotImplementedException();
+           return _costo;
         }
 
         public int getId()
         {
             return _id;
+        }
+
+         public int Costo
+        {
+            get
+            {
+                return _costo;
+            }
+            set{_costo = value;}
         }
 
         public string toString()
