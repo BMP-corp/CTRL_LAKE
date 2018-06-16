@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ModelCtrlLake
+namespace CTRL_LAKE.Models
 {
      public class Impegno
     {

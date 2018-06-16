@@ -112,7 +112,7 @@ namespace CTRL_LAKE.Models
             return _id;
         }
 
-         public int Costo
+         public double Costo
         {
             get
             {
