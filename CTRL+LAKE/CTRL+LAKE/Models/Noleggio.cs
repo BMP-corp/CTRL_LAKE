@@ -15,7 +15,7 @@ namespace CTRL_LAKE.Models
         
         public Noleggio(int id, Cliente cliente, DateTime inizio, DateTime fine)
         {
-            if ((id == null) || (cliente == null) || (inizio == null) || (fine == null) || (elencoDettagli == null))
+            if ((id < 0) || (cliente == null) || (inizio == null) || (fine == null))
                 throw new Exception("Creazione Noleggio fallita, uno o più campi inseriti sono nulli");
             if (!dateVerified(inizio,fine))
                 throw new Exception("Creazione Noleggio fallita, mismatch nelle date inserite");
@@ -27,7 +27,7 @@ namespace CTRL_LAKE.Models
            
         }
 
-        private boolean dateVerified(DateTime inizio, DateTime fine)
+        private Boolean dateVerified(DateTime inizio, DateTime fine)
         {
             if (inizio.CompareTo(fine) >= 0)
                 return false;
@@ -78,8 +78,10 @@ namespace CTRL_LAKE.Models
             {
                 foreach (DettaglioNoleggio dt in this._elencoDettagli)
                     if (dt.OverlapsWith(dettaglio))
+                    {
                         overlaps = true;
                         break;
+                    }
                 if (!overlaps)
                     this._elencoDettagli.Add(dettaglio);
                 else throw new Exception("Dettaglio già inserito");
