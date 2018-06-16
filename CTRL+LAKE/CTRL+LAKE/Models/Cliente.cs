@@ -23,7 +23,7 @@ namespace CTRL_LAKE.Models
             }
 
             //controllo che il numero di telefono abbia le cifre di un cellulare o fisso (anche vecchio con 9 cifre)
-            if(telefono.Length != 10 || telefono.Length != 9)
+            if(telefono.Length != 10 && telefono.Length != 9)
             {
                 throw new Exception("Impossibile creare cliente: formato telefono non valido");
             }

@@ -52,6 +52,7 @@
     <Compile Include="CalendarioImpegniTests.cs" />
     <Compile Include="ImpegnoTests.cs" />
     <Compile Include="IstruttoreTests.cs" />
+    <Compile Include="LezioneTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
