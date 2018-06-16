@@ -4,7 +4,7 @@ using System;
 using System.Linq;
 
 
-namespace CTRL_LAKE.Tests
+namespace CTRL_LAKE.Models.Tests
 {
     [TestClass()]
     public class LezioneTests
@@ -16,7 +16,7 @@ namespace CTRL_LAKE.Tests
         [TestInitialize]
         public void Initialize()
         {
-            cli = new Cliente("Mich", "Camp", new DateTime(1996, 8, 8), "miccam@mail.it", "3334567778");
+            cli = new Cliente("Mich", "Camp", "mic.cam.7", new DateTime(1996, 8, 8), "miccam@mail.it", "3334567778");
             istr = new Istruttore("Fra", "Mazzu", "fra.maz.1", new DateTime(1996, 4, 1), "framaz@mail.it", "3334445556", "fakeIban", "barcaVela");
         }
 

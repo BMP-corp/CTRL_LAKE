@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CTRL_LAKE.Tests
+namespace CTRL_LAKE.Models.Tests
 {
     [TestClass()]
     public class CalendarioImpegniTests

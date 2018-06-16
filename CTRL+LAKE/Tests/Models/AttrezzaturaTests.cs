@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using CTRL_LAKE.Models;
 
-namespace CTRL_LAKE.Tests
+namespace CTRL_LAKE.Models.Tests
 {
     [TestClass()]
     public class AttrezzaturaTests
