@@ -12,90 +12,52 @@ namespace CTRL_LAKE.Models
         private double _costo;
         private Attrezzatura _attrezzatura;
 
-        public DettaglioNoleggio(int id, int utilizzatori, Attrezzatura attrezzatura, double costo)
+        public int Id { get => _id; set => _id = value; }
+        public int Utilizzatori { get => _utilizzatori; set => _utilizzatori = value; }
+        public double Costo { get => _costo; set => _costo = value; }
+        public Attrezzatura Attrezzatura { get => _attrezzatura; set => _attrezzatura = value; }
+
+        public DettaglioNoleggio(int id, int utilizzatori, Attrezzatura attrezzatura, double costo, DateTime inizio, DateTime fine)
         {
 
             if (attrezzatura == null)
                 throw new Exception("Impossibile creare dettaglio noleggio: campo attrezzatura nullo");
-            if (utilizzatori <= 0 || utilizzatori > 5)
-                throw new Exception("Impossibile creare dettaglio noleggio: numero utilizzatori non valido");
             if (costo <= 0)
                 throw new Exception("Impossibile creare dettaglio noleggio: costo non valido");
-            
+
             _id = id;
-            _utilizzatori = utilizzatori;
             _attrezzatura = attrezzatura;
+            try
+            {
+                _attrezzatura.Riserva(inizio, fine, utilizzatori);
+            } catch (Exception e) { throw e; }
+            _utilizzatori = utilizzatori;
             _costo = costo;
 
         }
 
-        public int Id
-        {
-            get
-            {
-                return _id;
-            }
-            set{_id = value;}
+
+        public DettaglioNoleggio() {
         }
 
 
-        public Attrezzatura Attrezzatura
-        {
-            get
-            {
-                return _attrezzatura;
-            }
-            set
-            {
-                _attrezzatura = value;
-            }
-        }
-
-
-        public int Utilizzatori
-        {
-            get
-            {
-                return _utilizzatori;
-            }
-            set
-            {
-                _utilizzatori = value;
-            }
-        }
-
-        //Calcola costo si potrebbe eliminare in quanto equivalente al get 
         public double CalcolaCosto()
         {
-           return _costo;
+            return _costo;
         }
 
-        public int getId()
+        public int GetId()
         {
             return _id;
         }
 
-         public int Costo
-        {
-            get
-            {
-                return _costo;
-            }
-            set{_costo = value;}
-        }
 
-        public string toString()
+        public string ToString()
         {
             string result;
-            result = "ID: " + _id + " ATTREZZATURA: " + _attrezzatura + " UTILIZZATORI: " + _utilizzatori;
+            result = "ID " + _id + ": " + _attrezzatura + ", " + _utilizzatori + " persone, " + this._costo + "€";
             return result;
         }
 
-        public bool OverlapsWith(DettaglioNoleggio dettaglio)
-        {
-            if (dettaglio.getId == this._id)
-                return true;
-            else return false;
-        }
     }
 }

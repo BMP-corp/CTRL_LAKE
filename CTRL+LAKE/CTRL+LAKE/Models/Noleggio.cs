@@ -15,10 +15,10 @@ namespace CTRL_LAKE.Models
         
         public Noleggio(int id, Cliente cliente, DateTime inizio, DateTime fine)
         {
-            if ((id == null) || (cliente == null) || (inizio == null) || (fine == null) || (elencoDettagli == null))
-                throw new Exception("Creazione Noleggio fallita, uno o più campi inseriti sono nulli");
+            if ( id<0 || cliente == null || inizio == null || fine == null )
+                throw new Exception("Creazione Noleggio fallita, uno o più campi inseriti non sono corretti");
             if (!dateVerified(inizio,fine))
-                throw new Exception("Creazione Noleggio fallita, mismatch nelle date inserite");
+                throw new Exception("Creazione Noleggio fallita, intervallo non valido");
                 this._id = id;
                 this._cliente = cliente;
                 this._inizio = inizio;
@@ -27,7 +27,10 @@ namespace CTRL_LAKE.Models
            
         }
 
-        private boolean dateVerified(DateTime inizio, DateTime fine)
+        public Noleggio() { 
+        }
+
+        private static bool dateVerified(DateTime inizio, DateTime fine)
         {
             if (inizio.CompareTo(fine) >= 0)
                 return false;
@@ -66,29 +69,29 @@ namespace CTRL_LAKE.Models
         public List<DettaglioNoleggio> DettaglioNoleggio
         {
             get { return _elencoDettagli; }
-            //il set va fatto?
             
         }
 
         /****BUSINESS****/
-        public void addDettaglio(DettaglioNoleggio dettaglio)
+        public void AddDettaglio(DettaglioNoleggio dettaglio)
         {
-            bool overlaps = false;
+            bool giaPresente = false;
             if (dettaglio != null)
             {
                 foreach (DettaglioNoleggio dt in this._elencoDettagli)
-                    if (dt.OverlapsWith(dettaglio))
-                        overlaps = true;
+                    if (dt.Id == dettaglio.Id)
+                    {
+                        giaPresente = true;
                         break;
-                if (!overlaps)
+                    }
+                if (giaPresente)
+                    throw new Exception("Dettaglio già inserito");
+                else
                     this._elencoDettagli.Add(dettaglio);
-                else throw new Exception("Dettaglio già inserito");
-            }
-                
-
+            }   
         }
 
-        public void rimuoviDettaglio(DettaglioNoleggio dettaglio)
+        public void RimuoviDettaglio(DettaglioNoleggio dettaglio)
         {
             if (!this._elencoDettagli.Remove(dettaglio))
                 throw new Exception("Dettaglio non presente nella lista");
