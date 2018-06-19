@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CTRL_LAKE.Models
 {
-    interface IDettaglioPagamento
+    public interface IDettaglioPagamento
     {
         double CalcolaCosto();
         string toString();

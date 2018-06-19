@@ -75,7 +75,7 @@ namespace CTRL_LAKE.Models
             return _id;
         }
 
-         public int Costo
+         public double Costo
         {
             get
             {
@@ -93,7 +93,7 @@ namespace CTRL_LAKE.Models
 
         public bool OverlapsWith(DettaglioNoleggio dettaglio)
         {
-            if (dettaglio.getId == this._id)
+            if (dettaglio.Id == _id)
                 return true;
             else return false;
         }

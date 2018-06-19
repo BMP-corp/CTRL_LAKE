@@ -54,6 +54,7 @@
     <Compile Include="Models\IstruttoreTests.cs" />
     <Compile Include="Models\LezioneTest.cs" />
     <Compile Include="Models\ClienteTests.cs" />
+    <Compile Include="Models\NoleggioTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
