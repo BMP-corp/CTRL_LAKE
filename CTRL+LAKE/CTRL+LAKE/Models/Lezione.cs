@@ -15,14 +15,6 @@ namespace CTRL_LAKE.Models
         private Cliente _cliente;
         private double _costo;
 
-        public int Id { get => _id; set => _id = value; }
-        public Istruttore Istruttore { get => _istruttore; set => _istruttore = value; }
-        public DateTime Inizio { get => _inizio; set => _inizio = value; }
-        public DateTime Fine { get => _fine; set => _fine = value; }
-        public int Partecipanti { get => _partecipanti; set => _partecipanti = value; }
-        public Cliente Cliente { get => _cliente; set => _cliente = value; }
-        public double Costo { get => _costo; set => _costo = value; }
-
         public Lezione(int id, Istruttore istruttore, DateTime inizio, DateTime fine, int partecipanti, Cliente cliente, double costo)
         {
 
@@ -76,10 +68,75 @@ namespace CTRL_LAKE.Models
             _partecipanti = partecipanti;
             _cliente = cliente;
         }
-        
-        public int GetId()
+
+        public int Id
         {
-            return _id;
+            get
+            {
+                return _id;
+            }
+            set{ _id = value; }
+        }
+
+        public Istruttore Istruttore
+        {
+            get
+            {
+                return _istruttore;
+            }
+            set
+            {
+                try
+                {
+                    if (_istruttore!=null)
+                        _istruttore.Libera(_inizio, _fine);
+                    _istruttore = value;
+                    _istruttore.Riserva(_inizio, _fine);
+                } catch (Exception e) { throw e; }
+            }
+        }
+
+        public DateTime Inizio
+        {
+            get
+            {
+                return _inizio;
+            }
+            set{_inizio = value;}
+        }
+
+        public DateTime Fine
+        {
+            get
+            {
+                return _fine;
+            }
+            set{ _fine = value;}
+        }
+
+        public Cliente Cliente
+        {
+            get
+            {
+                return _cliente;
+            }
+            set
+            {
+                _cliente = value;
+            }
+        }
+
+
+        public int Partecipanti
+        {
+            get
+            {
+                return _partecipanti;
+            }
+            set
+            {
+                _partecipanti = value;
+            }
         }
 
         //Calcola costo si potrebbe eliminare in quanto equivalente al get 
@@ -89,7 +146,21 @@ namespace CTRL_LAKE.Models
            return _costo;
         }
 
-        public string ToString()
+        public int getId()
+        {
+            return _id;
+        }
+
+         public double Costo
+        {
+            get
+            {
+                return _costo;
+            }
+            set{_costo = value;}
+        }
+
+        public string toString()
         {
             string result;
             result = "ID: " + _id + " ISTRUTTORE: " + _istruttore + " CLIENTE: " + _cliente;

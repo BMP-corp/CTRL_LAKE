@@ -12,14 +12,8 @@ namespace CTRL_LAKE.Models
         private string _descrizione;
         private double _costo;
 
-        public int Id { get => _id; set => _id = value; }
-        public string Descrizione { get => _descrizione; set => _descrizione = value; }
-        public double Costo { get => _costo; set => _costo = value; }
-
         public DettaglioExtra(int id, string descrizione, double costo)
         {
-            if (id < 0 || costo <= 0)
-                throw new Exception("Impossibile creare il dettaglio: id o costo negativo");
             _id = id;
             _descrizione = descrizione;
             _costo = costo;
@@ -30,14 +24,15 @@ namespace CTRL_LAKE.Models
             return _costo;
         }
 
-        public string ToString()
+        public string toString()
         {
-            string result = "Id " + _id + ": " + _descrizione + ", " + _costo + "€";
+            string result;
+            result = _id + _descrizione + _costo;
             return result;
 
         }
 
-        public int GetId()
+        public int getId()
         {
             return _id;
         }

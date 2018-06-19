@@ -50,12 +50,11 @@
   <ItemGroup>
     <Compile Include="Models\AttrezzaturaTests.cs" />
     <Compile Include="Models\CalendarioImpegniTests.cs" />
-    <Compile Include="Models\DettaglioExtraTests.cs" />
     <Compile Include="Models\ImpegnoTests.cs" />
     <Compile Include="Models\IstruttoreTests.cs" />
     <Compile Include="Models\LezioneTest.cs" />
     <Compile Include="Models\ClienteTests.cs" />
-    <Compile Include="Models\NoleggioTests.cs" />
+    <Compile Include="Models\NoleggioTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
