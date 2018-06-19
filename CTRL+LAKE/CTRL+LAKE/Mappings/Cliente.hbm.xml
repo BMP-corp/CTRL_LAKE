@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="CTRL+LAKE"
+                   namespace="CTRL_LAKE.Models">
+  <class name="Cliente" table="CLIENTI">
+    <id name="Username" column="username" />
+    <property name="Nome" column="nome"/>
+    <property name="Cognome" column="cognome"/>
+  </class>
+</hibernate-mapping>

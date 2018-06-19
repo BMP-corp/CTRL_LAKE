@@ -15,12 +15,12 @@ namespace CTRL_LAKE.Models
         private string _telefono;
 
 
-        public string Nome { get => _nome; set => _nome = value; }
-        public string Cognome { get => _cognome; set => _cognome = value; }
-        public string Username { get => _username; set => _username = value; }
-        public string Email { get => _email; set => _email = value; }
-        public DateTime DataNascita { get => _dataNascita; set => _dataNascita = value; }
-        public string Telefono { get => _telefono; set => _telefono = value; }
+        public virtual string Nome { get => _nome; set => _nome = value; }
+        public virtual string Cognome { get => _cognome; set => _cognome = value; }
+        public virtual string Username { get => _username; set => _username = value; }
+        public virtual string Email { get => _email; set => _email = value; }
+        public virtual DateTime DataNascita { get => _dataNascita; set => _dataNascita = value; }
+        public virtual string Telefono { get => _telefono; set => _telefono = value; }
 
         public Cliente(string nome, string cognome, string username, DateTime dataNascita, string email, string telefono)
         {
@@ -54,5 +54,7 @@ namespace CTRL_LAKE.Models
 
         }
 
+        public Cliente() {
+        }
     }
 }
