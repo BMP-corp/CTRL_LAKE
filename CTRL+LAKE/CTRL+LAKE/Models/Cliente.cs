@@ -15,15 +15,15 @@ namespace CTRL_LAKE.Models
         private string _telefono;
 
 
-        public Cliente(string nome, string cognome, string username, DateTime dataNascita, string email, string telefono)
+        public Cliente(string nome, string cognome, DateTime dataNascita, string email, string telefono)
         {
-            if(nome == null || cognome == null || username==null || dataNascita == null || email == null || telefono == null)
+            if(nome == null || cognome == null || dataNascita == null || email == null || telefono == null)
             {
                 throw new Exception("Impossibile creare cliente: valore di un campo nullo");
             }
 
             //controllo che il numero di telefono abbia le cifre di un cellulare o fisso (anche vecchio con 9 cifre)
-            if(telefono.Length != 10 && telefono.Length != 9)
+            if(telefono.Length != 10 || telefono.Length != 9)
             {
                 throw new Exception("Impossibile creare cliente: formato telefono non valido");
             }
@@ -37,7 +37,6 @@ namespace CTRL_LAKE.Models
 
             _nome = nome;
             _cognome = cognome;
-            _username = username;
             _dataNascita = dataNascita;
             _email = email;
             _telefono = telefono;
