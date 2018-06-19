@@ -15,7 +15,11 @@ namespace CTRL_LAKE.Models
         private string _telefono;
 
 
+<<<<<<< HEAD
         public Cliente(string nome, string cognome, DateTime dataNascita, string email, string telefono)
+=======
+        public Cliente(string nome, string cognome, string username, DateTime dataNascita, string email, string telefono)
+>>>>>>> parent of 59f9349... corretto model, aggiunto test
         {
             if(nome == null || cognome == null || dataNascita == null || email == null || telefono == null)
             {

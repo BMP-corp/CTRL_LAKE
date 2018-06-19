@@ -67,10 +67,53 @@ namespace CTRL_LAKE.Models
             set{_inizio = value;}
         }
 
+<<<<<<< HEAD
         public DateTime Fine
         {
             get
             {
+=======
+        public int Id
+        {
+            get
+            {
+                return _id;
+            }
+            set{ _id = value; }
+        }
+
+        public Istruttore Istruttore
+        {
+            get
+            {
+                return _istruttore;
+            }
+            set
+            {
+                try
+                {
+                    if (_istruttore!=null)
+                        _istruttore.Libera(_inizio, _fine);
+                    _istruttore = value;
+                    _istruttore.Riserva(_inizio, _fine);
+                } catch (Exception e) { throw e; }
+            }
+        }
+
+        public DateTime Inizio
+        {
+            get
+            {
+                return _inizio;
+            }
+            set{_inizio = value;}
+        }
+
+        public DateTime Fine
+        {
+            get
+            {
+>>>>>>> parent of 59f9349... corretto model, aggiunto test
                 return _fine;
             }
             set{ _fine = value;}
@@ -112,7 +155,11 @@ namespace CTRL_LAKE.Models
             return _id;
         }
 
+<<<<<<< HEAD
          public int Costo
+=======
+         public double Costo
+>>>>>>> parent of 59f9349... corretto model, aggiunto test
         {
             get
             {
