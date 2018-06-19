@@ -15,6 +15,13 @@ namespace CTRL_LAKE.Models
         private string _telefono;
 
 
+        public string Nome { get => _nome; set => _nome = value; }
+        public string Cognome { get => _cognome; set => _cognome = value; }
+        public string Username { get => _username; set => _username = value; }
+        public string Email { get => _email; set => _email = value; }
+        public DateTime DataNascita { get => _dataNascita; set => _dataNascita = value; }
+        public string Telefono { get => _telefono; set => _telefono = value; }
+
         public Cliente(string nome, string cognome, string username, DateTime dataNascita, string email, string telefono)
         {
             if(nome == null || cognome == null || username==null || dataNascita == null || email == null || telefono == null)
@@ -28,13 +35,16 @@ namespace CTRL_LAKE.Models
                 throw new Exception("Impossibile creare cliente: formato telefono non valido");
             }
 
+            foreach (char c in telefono)
+                if (!Char.IsDigit(c))
+                    throw new Exception("Impossibile creare cliente: formato telefono non valido");
+
             //controllo (blando) della email
-            if (!email.Contains("@") || !email.Contains("."))
+            if ( (!email.Contains("@") || !email.Contains("."))
+                || email.LastIndexOf('.')<email.LastIndexOf('@') )
             {
                 throw new Exception("Impossibile creare cliente: formato email non valido");
             }
-
-
             _nome = nome;
             _cognome = cognome;
             _username = username;
@@ -44,76 +54,5 @@ namespace CTRL_LAKE.Models
 
         }
 
-        public string Nome
-        {
-            get
-            {
-                return _nome;
-            }
-            set
-            {
-                _nome = value;
-            }
-        }
-
-        public string Cognome
-        {
-            get
-            {
-                return _cognome;
-            }
-            set
-            {
-                _cognome = value;
-            }
-        }
-
-        public string Username
-        {
-            get
-            {
-                return _username;
-            }
-            set
-            {
-                _username = value;
-            }
-        }
-
-        public string Email
-        {
-            get
-            {
-                return _email;
-            }
-            set
-            {
-                _email = value;
-            }
-        }
-
-        public DateTime DataNascita
-        {
-            get
-            {
-                return _dataNascita;
-            }
-            set
-            {
-                  _dataNascita = value;
-            }
-        }
-
-        public string Telefono
-        {
-            get
-            {
-                return _telefono;
-            }
-            set
-            {
-                _telefono = value;
-            }
-        }
     }
 }

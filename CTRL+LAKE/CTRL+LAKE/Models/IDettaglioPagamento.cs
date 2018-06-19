@@ -9,8 +9,8 @@ namespace CTRL_LAKE.Models
     public interface IDettaglioPagamento
     {
         double CalcolaCosto();
-        string toString();
-        int getId();
+        string ToString();
+        int GetId();
 
     }
 }
