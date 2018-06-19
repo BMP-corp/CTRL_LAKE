@@ -50,7 +50,6 @@
   <ItemGroup>
     <Compile Include="Models\AttrezzaturaTests.cs" />
     <Compile Include="Models\CalendarioImpegniTests.cs" />
-    <Compile Include="Models\DettaglioExtraTests.cs" />
     <Compile Include="Models\ImpegnoTests.cs" />
     <Compile Include="Models\IstruttoreTests.cs" />
     <Compile Include="Models\LezioneTest.cs" />

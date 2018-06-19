@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace CTRL_LAKE.Models
 {
-    public interface IDettaglioPagamento
+    interface IDettaglioPagamento
     {
         double CalcolaCosto();
-        string ToString();
-        int GetId();
+        string toString();
+        int getId();
 
     }
 }

@@ -14,22 +14,16 @@ namespace CTRL_LAKE.Models
         private List<IDettaglioPagamento> _dettagli { get; set; }
 
 
-        public Pagamento(int id, double pagato)
+        public Pagamento(int id, DateTime now, double totale, double pagato)
         {
-            if ( id < 0 || pagato < 0 )
+            if ((id == null) || (pagato == null) || (totale == null) || (now == null))
                 throw new Exception("Creazione Pagamento non riuscita, dati non validi");
 
             this._id = id;
             this._pagato = pagato;
-            this._dataOra = DateTime.Now;
+            this._totale = totale;
+            this._dataOra = now;
             this._dettagli = new List<IDettaglioPagamento>();
-            this._totale = CalcolaTotale();
-        }
-
-        public Pagamento () {
-            this._dataOra = DateTime.Now;
-            this._dettagli = new List<IDettaglioPagamento>();
-            this._totale = CalcolaTotale();
         }
 
         /*****GET/SET******/
@@ -45,10 +39,10 @@ namespace CTRL_LAKE.Models
             set { _pagato = value; }
         }
 
-        public DateTime DataOra
+        public DateTime Now
         {
-            get { return _dataOra; }
-            set { _dataOra = value; }
+            get { return _now; }
+            set { _now = value; }
         }
 
         public int Id
@@ -64,24 +58,18 @@ namespace CTRL_LAKE.Models
         }
 
         /*****BUSINESS******/
-        public void AddDettaglio(IDettaglioPagamento dettaglio)
+        public void addDettaglio(IDettaglioPagamento dettaglio)
         {
-           bool exists = false;
+           Boolean exists = false;
             foreach (IDettaglioPagamento d in _dettagli)
-                if (d.GetId() == dettaglio.GetId())
-                {
+                if (d.getId == dettaglio.getId)
                     exists = true;
-                    break;
-                }
-            if (!exists)
-            {
-                _dettagli.Add(dettaglio);
-                _totale = CalcolaTotale();
-            }
-            else throw new Exception("Dettaglio già esistente");
+                if (!exists)
+                    _dettagli.Add(dettaglio);
+                else throw new Exception("Dettaglio già esistente");
         }
 
-        public bool IsPagato()
+        public Boolean isPagato()
         {
             if (this._pagato == this._totale)
                 return true;
@@ -89,15 +77,14 @@ namespace CTRL_LAKE.Models
         }
 
  
-        public void Paga() //se non c'è importo si assume che paghi tutto
+        public void paga() //se non c'è importo si assume che paghi tutto
         {
             this._pagato = this._totale;
-            _dataOra = DateTime.Now;
         }
 
-        public double CalcolaTotale()
+        public double calcolaTotale()
         {
-            double totale = 0;
+            double totale = 0.0;
             foreach(IDettaglioPagamento d in this._dettagli)
                 totale += d.CalcolaCosto();
             return totale;
