@@ -9,8 +9,11 @@ namespace CTRL_LAKE.Models
      public class Impegno
     {
 
-        private DateTime _inizio { get; set; }
-        private DateTime _fine { get; set; }
+        private DateTime _inizio;
+        private DateTime _fine;
+
+        public DateTime Inizio { get => _inizio; set => _inizio = value; }
+        public DateTime Fine { get => _fine; set => _fine = value; }
 
         public Impegno(DateTime inizio, DateTime fine)
         {
@@ -21,25 +24,14 @@ namespace CTRL_LAKE.Models
                 throw new Exception("Impossibile creare impegno: orari non possibili");
             if (!inizio.Date.Equals(fine.Date))
                 throw new Exception("Impossibile creare impegno: non ammessi inizio e fine in due giorni distinti");
-            this._inizio = inizio;
-            this._fine = fine;
-        }
-
-        public DateTime Inizio
-        {
-            get { return this._inizio; }
-            //set { this._inizio = value; }
-        }
-        public DateTime Fine
-        {
-            get { return this._fine; }
-            //set { this._fine = value; }
+            this.Inizio = inizio;
+            this.Fine = fine;
         }
 
         public bool OverlapsWith(Impegno i2)
         {
-            DateTime max_inizio = DateTime.Compare(this._inizio, i2._inizio) >= 0 ? this._inizio : i2._inizio;
-            DateTime min_fine = DateTime.Compare(this._fine, i2._fine) <= 0 ? this._fine : i2._fine;
+            DateTime max_inizio = DateTime.Compare(this.Inizio, i2.Inizio) >= 0 ? this.Inizio : i2.Inizio;
+            DateTime min_fine = DateTime.Compare(this.Fine, i2.Fine) <= 0 ? this.Fine : i2.Fine;
             if (DateTime.Compare(max_inizio, min_fine) < 0)
                 return true;
             else
@@ -48,8 +40,8 @@ namespace CTRL_LAKE.Models
 
         public bool Equals(Impegno i2)
         {
-            bool result = ( this._inizio.CompareTo(i2._inizio) == 0
-                && this._fine.CompareTo(i2._fine) == 0 );
+            bool result = ( this.Inizio.CompareTo(i2.Inizio) == 0
+                && this.Fine.CompareTo(i2.Fine) == 0 );
             return result;
         }
     }

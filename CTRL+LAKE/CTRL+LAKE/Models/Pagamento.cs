@@ -7,23 +7,22 @@ namespace CTRL_LAKE.Models
 {
     public class Pagamento
     {
-        private DateTime _dataOra { get; set; }
-        private int _id { get; set; }
-        private double _totale { get; set; }
-        private double _pagato { get; set; }
-        private List<IDettaglioPagamento> _dettagli { get; set; }
-
+        private DateTime _dataOra;
+        private int _id;
+        private double _totale;
+        private double _pagato;
+        private List<IDettaglioPagamento> _dettagli;
 
         public Pagamento(int id, DateTime now, double totale, double pagato)
         {
-            if ((id == null) || (pagato == null) || (totale == null) || (now == null))
+            if ((id <= 0) || (pagato.Equals(null)) || (totale.Equals(0.0)) || (now == null))
                 throw new Exception("Creazione Pagamento non riuscita, dati non validi");
 
-            this._id = id;
-            this._pagato = pagato;
-            this._totale = totale;
-            this._dataOra = now;
-            this._dettagli = new List<IDettaglioPagamento>();
+            _id = id;
+            _pagato = pagato;
+            _totale = totale;
+            _dataOra = now;
+            _dettagli = new List<IDettaglioPagamento>();
         }
 
         /*****GET/SET******/
@@ -41,8 +40,8 @@ namespace CTRL_LAKE.Models
 
         public DateTime Now
         {
-            get { return _now; }
-            set { _now = value; }
+            get { return _dataOra; }
+            set { _dataOra = value; }
         }
 
         public int Id
@@ -62,7 +61,7 @@ namespace CTRL_LAKE.Models
         {
            Boolean exists = false;
             foreach (IDettaglioPagamento d in _dettagli)
-                if (d.getId == dettaglio.getId)
+                if (d.getId() == dettaglio.getId())
                     exists = true;
                 if (!exists)
                     _dettagli.Add(dettaglio);

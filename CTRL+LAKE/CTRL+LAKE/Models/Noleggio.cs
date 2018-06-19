@@ -7,15 +7,14 @@ namespace CTRL_LAKE.Models
 {
     public class Noleggio
     {
-        private int _id { get; set; }
-        private Cliente _cliente { get; set; }
-        private DateTime _inizio { get; set; }
-        private DateTime _fine { get; set; }
-        private List<DettaglioNoleggio> _elencoDettagli { get; }
-        
+        private int _id;
+        private Cliente _cliente;
+        private DateTime _inizio;
+        private DateTime _fine;
+        private List<DettaglioNoleggio> _elencoDettagli;
         public Noleggio(int id, Cliente cliente, DateTime inizio, DateTime fine)
         {
-            if ((id < 0) || (cliente == null) || (inizio == null) || (fine == null))
+            if ((id <= 0) || (cliente == null) || (inizio == null) || (fine == null))
                 throw new Exception("Creazione Noleggio fallita, uno o più campi inseriti sono nulli");
             if (!dateVerified(inizio,fine))
                 throw new Exception("Creazione Noleggio fallita, mismatch nelle date inserite");
