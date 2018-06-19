@@ -13,33 +13,22 @@ namespace CTRL_LAKE.Models
         private int _posti;
         private CalendarioImpegni _impegni;
 
+        public string Tipo { get => _tipo; set => _tipo = value; }
+        public int IdAttrezzatura { get => _idAttrezzatura; set => _idAttrezzatura = value; }
+        public int Posti { get => _posti; set => _posti = value; }
+
         public Attrezzatura(string tipo, int idAttrezzatura, int posti)
         {
-            _tipo = tipo;
-            _idAttrezzatura = idAttrezzatura;
-            _posti = posti;
+            Tipo = tipo;
+            IdAttrezzatura = idAttrezzatura;
+            Posti = posti;
             _impegni = new CalendarioImpegni();
         }
 
-        public Attrezzatura() { }
-
-        public string Tipo
-        {
-            get { return _tipo; }
-            //set { _tipo = value; }
+        public Attrezzatura() {
         }
 
-        public int IdAttrezzatura
-        {
-            get { return _idAttrezzatura; }
-            //set { _idAttrezzatura = value; }
-        }
-
-        public int Posti
-        {
-            get { return _posti;}
-            //set { _posti = value; }
-        }
+        
         
         public bool isCancellabile()
         {
@@ -71,7 +60,7 @@ namespace CTRL_LAKE.Models
         
         public void Riserva (DateTime inizio, DateTime fine, int persone)
         {
-            if (persone > this._posti || persone<1)
+            if (persone > this.Posti || persone<1)
             {
                 throw new Exception("Impossibile riservare questo oggetto per " + persone + "persone");
             }
