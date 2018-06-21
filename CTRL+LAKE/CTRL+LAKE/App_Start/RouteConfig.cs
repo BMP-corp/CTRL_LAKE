@@ -30,11 +30,13 @@ namespace CTRL_LAKE
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
 
+            System.Diagnostics.Debug.WriteLine("SCRIVO QUI");
             insert();
             Cliente c = readCliente("mic.cam.1");
             if (c != null)
-                Console.WriteLine("[ " + c.Username + ", " + c.Nome + ", " + c.Cognome + " ]");
-            Console.WriteLine();
+                System.Diagnostics.Debug.WriteLine("[ " + c.Username + ", " + c.Nome + ", " + c.Cognome + " ]");
+            System.Diagnostics.Debug.WriteLine("");
+
         }
 
 
@@ -72,7 +74,7 @@ namespace CTRL_LAKE
             using (sess.BeginTransaction())
             {
                 ICriteria criteria = sess.CreateCriteria<Cliente>();
-                criteria.Add(Restrictions.Like("username", username));
+                criteria.Add(Expression.Like("Username", username));
                 try
                 {
                     res = criteria.List<Cliente>()[0];
