@@ -1,0 +1,53 @@
+﻿@model CTRL_LAKE.Models.Attrezzatura
+@{
+    var elenco = ViewData["MapAttrezzature"] as Dictionary<string, int[]>;
+    var defaultMin = 0-elenco["barcaVela"][1];
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>GestioneAttrezzatura</title>
+    <script src="~/Scripts/utils.js" type="text/javascript"></script>
+    <script src="~/Scripts/gestioneAttrezzatura.js" type="text/javascript"></script>
+</head>
+<body>
+    <h2>Gestione dell' Attrezzatura</h2>
+    <div>
+        <ul id="grid_attrezzatura">
+            
+            @foreach (string tipo in elenco.Keys)
+            {
+                <li> [ @tipo , totali: @elenco[tipo][0] , cancellabili: @elenco[tipo][1] ]</li>
+            }
+        </ul>
+
+        <fieldset><legend>Aggiornamento</legend>
+            <form id="aggiornaAttr">
+                <label>Seleziona il tipo di attrezzatura: </label>
+                <select name="daAggiornare" onchange="aggiornaQuantita(this, myGetElementById('resDiv'))" >
+                    @foreach(string tipo in elenco.Keys)
+                    {
+                        if (tipo.Equals("barcaVela"))
+                        {
+                            <option id="@tipo" value="@elenco[tipo][1]" selected="selected">@tipo</option>
+                        }
+                        else
+                        {
+                            <option id="@tipo" value="@elenco[tipo][1]">@tipo</option>
+                        }
+                    }
+                </select>
+                <br/>
+                <label>Quantit&agrave; da aggiornare: </label>
+                <span id="resDiv"><input type="number" style="width: 40px" name="quantity" min="@defaultMin"/></span>
+                <input type="submit" id="aggiorna" value="AGGIORNA"/>
+            </form>
+        </fieldset>
+
+
+    </div>
+</body>
+</html>

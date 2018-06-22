@@ -23,6 +23,7 @@ namespace CTRL_LAKE
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.MapMvcAttributeRoutes();
 
             routes.MapRoute(
                 name: "Default",
@@ -30,12 +31,12 @@ namespace CTRL_LAKE
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
 
-            System.Diagnostics.Debug.WriteLine("SCRIVO QUI");
+            /*System.Diagnostics.Debug.WriteLine("SCRIVO QUI");
             insert();
             Cliente c = readCliente("mic.cam.1");
             if (c != null)
                 System.Diagnostics.Debug.WriteLine("[ " + c.Username + ", " + c.Nome + ", " + c.Cognome + " ]");
-            System.Diagnostics.Debug.WriteLine("");
+            System.Diagnostics.Debug.WriteLine("");*/
 
         }
 
