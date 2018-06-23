@@ -11,13 +11,21 @@ namespace CTRL_LAKE.Models
         private int _utilizzatori;
         private double _costo;
         private Attrezzatura _attrezzatura;
+        private int _idAttrezzatura;
+        private string _username;
+        private DateTime _inizio;
+        private DateTime _fine;
 
-        public int Id { get => _id; set => _id = value; }
-        public int Utilizzatori { get => _utilizzatori; set => _utilizzatori = value; }
-        public double Costo { get => _costo; set => _costo = value; }
-        public Attrezzatura Attrezzatura { get => _attrezzatura; set => _attrezzatura = value; }
+        public virtual int Id { get => _id; set => _id = value; }
+        public virtual int Utilizzatori { get => _utilizzatori; set => _utilizzatori = value; }
+        public virtual double Costo { get => _costo; set => _costo = value; }
+        public virtual Attrezzatura Attrezzatura { get => _attrezzatura; set => _attrezzatura = value; }
+        public virtual int IdAttrezzatura { get => _idAttrezzatura; set => _idAttrezzatura = value; }
+        public virtual string Username { get => _username; set => _username = value; }
+        public virtual DateTime Fine { get => _fine; set => _fine = value; }
+        public virtual DateTime Inizio { get => _inizio; set => _inizio = value; }
 
-        public DettaglioNoleggio(int id, int utilizzatori, Attrezzatura attrezzatura, double costo, DateTime inizio, DateTime fine)
+        public DettaglioNoleggio(int id, int utilizzatori, Attrezzatura attrezzatura, double costo, DateTime inizio, DateTime fine, string usernameCliente)
         {
 
             if (attrezzatura == null)
@@ -33,6 +41,9 @@ namespace CTRL_LAKE.Models
             } catch (Exception e) { throw e; }
             _utilizzatori = utilizzatori;
             _costo = costo;
+            _idAttrezzatura = attrezzatura.IdAttrezzatura;
+            _username = usernameCliente;
+            
 
         }
 
@@ -40,19 +51,32 @@ namespace CTRL_LAKE.Models
         public DettaglioNoleggio() {
         }
 
+        public override bool Equals(Object dettaglio)
+        {
+            DettaglioNoleggio dt = (DettaglioNoleggio)dettaglio;
+            if (IdAttrezzatura == dt.IdAttrezzatura && Id == dt.Id)
+                return true;
+            else return false;
+        }
 
-        public double CalcolaCosto()
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+
+        public virtual double CalcolaCosto()
         {
             return _costo;
         }
 
-        public int GetId()
+        public virtual int GetId()
         {
             return _id;
         }
 
 
-        public string ToString()
+        public virtual string ToString()
         {
             string result;
             result = "ID " + _id + ": " + _attrezzatura + ", " + _utilizzatori + " persone, " + this._costo + "€";

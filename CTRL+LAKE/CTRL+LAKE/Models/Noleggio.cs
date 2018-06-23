@@ -34,7 +34,7 @@ namespace CTRL_LAKE.Models
         {
             if (inizio.CompareTo(fine) >= 0)
                 return false;
-            else if (inizio.TimeOfDay.CompareTo(new TimeSpan(9, 0, 0)) <= 0 || fine.TimeOfDay.CompareTo(new TimeSpan(19, 0, 0)) <= 0)
+            else if (inizio.TimeOfDay.CompareTo(new TimeSpan(9, 0, 0)) <= 0 || fine.TimeOfDay.CompareTo(new TimeSpan(19, 0, 0)) >= 0)
                 return false;
             else if (!inizio.Date.Equals(fine.Date))
                 return false;
@@ -66,7 +66,7 @@ namespace CTRL_LAKE.Models
             set { _fine = value; }
         }
 
-        public List<DettaglioNoleggio> DettaglioNoleggio
+        public List<DettaglioNoleggio> ElencoDettagli
         {
             get { return _elencoDettagli; }
             

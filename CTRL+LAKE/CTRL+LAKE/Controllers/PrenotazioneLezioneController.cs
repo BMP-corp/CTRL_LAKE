@@ -34,7 +34,7 @@ namespace CTRL_LAKE.Controllers
             Lezione lezione = null;
             try
             {
-                lezione = new Lezione(ctrl.newId(), i, inizio, fine, partecipanti, c);
+                lezione = new Lezione(101, i, inizio, fine, partecipanti, c);
                 /*operazione di retrieve del costo della lezione*/ double costo = 30;
                 lezione.Costo = costo;
                 ctrl.ElencoLezioni.Add(lezione); //qui o in GestionePrenotazioniController?
