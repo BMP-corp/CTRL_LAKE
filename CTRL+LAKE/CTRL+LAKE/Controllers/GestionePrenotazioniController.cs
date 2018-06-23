@@ -25,6 +25,7 @@ namespace CTRL_LAKE.Controllers
 
         public HashSet<Lezione> ElencoLezioni { get => elencoLezioni; set => elencoLezioni = value; }
         public HashSet<Attrezzatura> ElencoAttrezzatura { get => elencoAttrezzatura; set => elencoAttrezzatura = value; }
+        public HashSet<Cliente> ElencoClienti { get => elencoClienti; set => elencoClienti = value; }
 
         /*public GestionePrenotazioniController()
         {
@@ -38,19 +39,19 @@ namespace CTRL_LAKE.Controllers
 
         private void init()
         {
-            Attrezzatura a = new Attrezzatura("barcaVela", newId(), 5);
+            Attrezzatura a = new Attrezzatura("barcaVela", NewId(), 5);
             ElencoAttrezzatura.Add(a);
-            ElencoAttrezzatura.Add(new Attrezzatura("barcaVela", newId(), 5));
-            ElencoAttrezzatura.Add(new Attrezzatura("canoa", newId(), 2));
+            ElencoAttrezzatura.Add(new Attrezzatura("barcaVela", NewId(), 5));
+            ElencoAttrezzatura.Add(new Attrezzatura("canoa", NewId(), 2));
             Cliente c = new Cliente("Michele", "Campa", "michele.campa.19", new DateTime(1996, 8, 11), "mc@ampa.it", "123456789");
-            elencoClienti.Add(c);
-            Noleggio nol = new Noleggio(newId(), c, new DateTime(2018, 6, 28, 10, 0, 0), new DateTime(2018, 6, 28, 11, 0, 0));
-            nol.AddDettaglio(new DettaglioNoleggio(nol.Id, 4, a, 45, new DateTime(2018, 6, 28, 10, 0, 0), new DateTime(2018, 6, 28, 11, 0, 0)));
+            ElencoClienti.Add(c);
+            Noleggio nol = new Noleggio(NewId(), c, new DateTime(2018, 6, 28, 10, 0, 0), new DateTime(2018, 6, 28, 11, 0, 0));
+            nol.AddDettaglio(new DettaglioNoleggio(nol.Id, 4, a, 45, new DateTime(2018, 6, 28, 10, 0, 0), new DateTime(2018, 6, 28, 11, 0, 0), "michele.campa.19"));
             elencoNoleggi.Add(nol);
             initialized = true;
         }
 
-        public int NewId() { return id; }
+        public int NewId() { return curr_id++; }
 
         // generazione degli ID (incrementale)
        
@@ -73,7 +74,7 @@ namespace CTRL_LAKE.Controllers
             }
             var username = Request.QueryString["username"];
             Cliente c = null;
-            foreach (Cliente c1 in elencoClienti)
+            foreach (Cliente c1 in ElencoClienti)
             {
                 if (c1.Username.Equals(username))
                 {
@@ -94,11 +95,11 @@ namespace CTRL_LAKE.Controllers
                         {
                             n = nol; break;
                         }
-                    for (int i=n.DettaglioNoleggio.Count-1; i>=0; i--)
+                    for (int i=n.ElencoDettagli.Count-1; i>=0; i--)
                     {
                         // METODO PERSISTENZA DELETE DETTAGLIO
-                        n.DettaglioNoleggio[i].Elimina(n.Inizio, n.Fine);
-                        n.RimuoviDettaglio(n.DettaglioNoleggio[i]);
+                        n.ElencoDettagli[i].Elimina(n.Inizio, n.Fine);
+                        n.RimuoviDettaglio(n.ElencoDettagli[i]);
                     }
                     elencoNoleggi.Remove(n);
                     ViewData["Message"] = "Prenotazione rimossa!";

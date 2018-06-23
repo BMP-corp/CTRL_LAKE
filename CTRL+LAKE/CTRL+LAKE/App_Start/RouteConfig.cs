@@ -40,7 +40,7 @@ namespace CTRL_LAKE
             //    System.Diagnostics.Debug.WriteLine("[ " + c.Username + ", " + c.Nome + ", " + c.Cognome + " ]");
             //System.Diagnostics.Debug.WriteLine("");
 
-            
+
 
             //bool result = aggiornaAttrezzatura("barcaVela", 1);
             //if (result)
@@ -67,7 +67,7 @@ namespace CTRL_LAKE
             //List<Cliente> elencoClienti = GetListaClienti();
             List<Noleggio> listaNoleggio = GetListaNoleggi();
 
-            
+
             System.Diagnostics.Debug.WriteLine("SCRIVO QUI 2");
 
 
@@ -198,7 +198,7 @@ namespace CTRL_LAKE
                     session.Save(credenziali);
                     session.Transaction.Commit();
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Console.Write(e.Message);
                 }
@@ -219,7 +219,7 @@ namespace CTRL_LAKE
                     temp = criteria.Add(Expression.Like("Username", username)).List<Credenziali>()[0];
                     password = temp.Password;
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Console.Write(e.Message);
                 }
@@ -248,7 +248,7 @@ namespace CTRL_LAKE
 
 
 
-        
+
         public static void DeleteDettaglioNoleggio(int idAttrezzatura, int id)
         {
             ISession session = OpenConnection();
@@ -291,13 +291,13 @@ namespace CTRL_LAKE
             return res;
         }
 
-        
+
 
         public static void InsertCliente(Cliente c)
         {
             try
             {
-               
+
                 ISession sess = OpenConnection();
                 using (sess.BeginTransaction())
                 {
@@ -319,7 +319,7 @@ namespace CTRL_LAKE
                 ISession sess = OpenConnection();
                 using (sess.BeginTransaction())
                 {
-                   
+
                     //Istruttore i = new Istruttore("Francesco", "Mazzucchelli", "francesco.mazzu.1", new DateTime(1996, 5, 4), "francesco.mazzu@gmail.com", "3344456789", "QWERT45", "vela", "pomeriggio");
                     sess.Persist(i);
                     sess.Transaction.Commit();
@@ -388,14 +388,14 @@ namespace CTRL_LAKE
                     //leggo dal database tutti gli username dei clienti 
                     temp = (List<Credenziali>)criteriaCredenziali.Add(Expression.Like("Ruolo", "cliente")).List<Credenziali>();
 
-                    foreach(Credenziali cred in temp)
+                    foreach (Credenziali cred in temp)
                     {
                         //per ogni username cerco il cliente corrispondente nella tabella utenti
                         cliente = criteriaClienti.Add(Expression.Like("Username", cred.Username)).List<Cliente>()[0];
                         //aggiungo il cliente alla lista clienti
                         res.Add(cliente);
                     }
-                    
+
                 } catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
@@ -452,10 +452,10 @@ namespace CTRL_LAKE
                     temp = GetListaDettagliNoleggio();
                     foreach (DettaglioNoleggio dt in temp)
                     {
-                        
+
                         foreach (Noleggio n in res)
                         {
-                            if(n.Id == dt.Id)
+                            if (n.Id == dt.Id)
                             {
                                 n.ElencoDettagli.Add(dt);
                                 aggiunto = true;
@@ -496,10 +496,10 @@ namespace CTRL_LAKE
         {
             try
             {
-                    foreach(DettaglioNoleggio dn in n.ElencoDettagli)
-                    {
+                foreach (DettaglioNoleggio dn in n.ElencoDettagli)
+                {
                     InsertDettaglioNoleggio(dn);
-                    }
+                }
             }
             catch (Exception e)
             {
@@ -509,26 +509,24 @@ namespace CTRL_LAKE
 
         public static void DeleteNoleggio(Noleggio n)
         {
-          
-                foreach(DettaglioNoleggio dn in n.ElencoDettagli)
-                {
-                    try
-                    {
-                        DeleteDettaglioNoleggio(dn.IdAttrezzatura, dn.Id);
 
-                    }
-                    catch (Exception e)
-                    {
-                        Console.Write(e.Message);
-                    }
+            foreach (DettaglioNoleggio dn in n.ElencoDettagli)
+            {
+                try
+                {
+                    DeleteDettaglioNoleggio(dn.IdAttrezzatura, dn.Id);
+
                 }
-                
-         }
+                catch (Exception e)
+                {
+                    Console.Write(e.Message);
+                }
+            }
 
         }
 
-
-
-
     }
+
+
+
 }

@@ -39,13 +39,13 @@ namespace CTRL_LAKE.Models
             Telefono = telefono;
             Iban = iban;
             Attivita = attivita;
-            _impegni = new CalendarioImpegni();
+            _impegni = new CalendarioImpegni(Username);
             _orario = orario;
         }
 
         public Istruttore ()
         {
-            _impegni = new CalendarioImpegni();
+            _impegni = new CalendarioImpegni(Username);
         }
 
         public virtual List<Impegno> elencaImpegni()
@@ -59,7 +59,7 @@ namespace CTRL_LAKE.Models
             Impegno richiesto = null;
             try
             {
-                richiesto = new Impegno(inizio, fine);
+                richiesto = new Impegno(inizio, fine, Username);
             }
             catch (Exception e) { throw e; }
             foreach (Impegno i in this.elencaImpegni())
