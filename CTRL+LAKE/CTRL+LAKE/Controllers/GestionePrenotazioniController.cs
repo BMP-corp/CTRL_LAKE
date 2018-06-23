@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.Mvc;
 using CTRL_LAKE.Controllers.Interfaces;
 using CTRL_LAKE.Models;
+using NHibernate;
+using NHibernate.Cfg;
 
 namespace CTRL_LAKE.Controllers
 {
@@ -23,8 +25,7 @@ namespace CTRL_LAKE.Controllers
 
         public HashSet<Lezione> ElencoLezioni { get => elencoLezioni; set => elencoLezioni = value; }
         public HashSet<Attrezzatura> ElencoAttrezzatura { get => elencoAttrezzatura; set => elencoAttrezzatura = value; }
-        public static HashSet<Cliente> ElencoClienti { get => elencoClienti; set => elencoClienti = value; }
-        public static HashSet<Noleggio> ElencoNoleggi { get => elencoNoleggi; set => elencoNoleggi = value; }
+        public HashSet<Cliente> ElencoClienti { get => elencoClienti; set => elencoClienti = value; }
 
         /*public GestionePrenotazioniController()
         {
@@ -38,24 +39,31 @@ namespace CTRL_LAKE.Controllers
 
         private void init()
         {
-            Attrezzatura a = new Attrezzatura("barcaVela", newId(), 5);
+            Attrezzatura a = new Attrezzatura("barcaVela", NewId(), 5);
             ElencoAttrezzatura.Add(a);
-            ElencoAttrezzatura.Add(new Attrezzatura("barcaVela", newId(), 5));
-            ElencoAttrezzatura.Add(new Attrezzatura("canoa", newId(), 2));
+            ElencoAttrezzatura.Add(new Attrezzatura("barcaVela", NewId(), 5));
+            ElencoAttrezzatura.Add(new Attrezzatura("canoa", NewId(), 2));
             Cliente c = new Cliente("Michele", "Campa", "michele.campa.19", new DateTime(1996, 8, 11), "mc@ampa.it", "123456789");
             ElencoClienti.Add(c);
-            Noleggio nol = new Noleggio(newId(), c, new DateTime(2018, 6, 28, 10, 0, 0), new DateTime(2018, 6, 28, 11, 0, 0));
-            nol.AddDettaglio(new DettaglioNoleggio(nol.Id, 4, a, 45, new DateTime(2018, 6, 28, 10, 0, 0), new DateTime(2018, 6, 28, 11, 0, 0)));
-            ElencoNoleggi.Add(nol);
+            Noleggio nol = new Noleggio(NewId(), c, new DateTime(2018, 6, 28, 10, 0, 0), new DateTime(2018, 6, 28, 11, 0, 0));
+            nol.AddDettaglio(new DettaglioNoleggio(nol.Id, 4, a, 45, new DateTime(2018, 6, 28, 10, 0, 0), new DateTime(2018, 6, 28, 11, 0, 0), "michele.campa.19"));
+            elencoNoleggi.Add(nol);
             initialized = true;
         }
 
-        // generazione degli ID (incrementale)
-        public int newId()
-        {
-            return curr_id++;
-        }
+        public int NewId() { return curr_id++; }
 
+        // generazione degli ID (incrementale)
+       
+
+        public static ISession OpenConnection()
+        {
+            Configuration myCfg = new Configuration();
+            myCfg.Configure();
+            ISessionFactory factory = myCfg.BuildSessionFactory();
+            ISession sess = factory.OpenSession();
+            return sess;
+        }
 
         // GET: GestionePrenotazioni
         public ActionResult HomeCliente()
@@ -87,11 +95,11 @@ namespace CTRL_LAKE.Controllers
                         {
                             n = nol; break;
                         }
-                    for (int i=n.DettaglioNoleggio.Count-1; i>=0; i--)
+                    for (int i=n.ElencoDettagli.Count-1; i>=0; i--)
                     {
                         // METODO PERSISTENZA DELETE DETTAGLIO
-                        n.DettaglioNoleggio[i].Elimina(n.Inizio, n.Fine);
-                        n.RimuoviDettaglio(n.DettaglioNoleggio[i]);
+                        n.ElencoDettagli[i].Elimina(n.Inizio, n.Fine);
+                        n.RimuoviDettaglio(n.ElencoDettagli[i]);
                     }
                     ElencoNoleggi.Remove(n);
                     ViewData["Message"] = "Prenotazione rimossa!";
@@ -112,42 +120,116 @@ namespace CTRL_LAKE.Controllers
         }
 
 
-        public Dictionary<DateTime, int[]> GetMappaDisponibilita(DateTime giorno) //le key indicano l'ora di inizio
-        {                                                          //di una fascia oraria
-            Dictionary<DateTime, int[]> result = new Dictionary<DateTime, int[]>();
-            DateTime hour = new DateTime(giorno.Year, giorno.Month, giorno.Day, 9, 0, 0);
-            for (int i=0; i<10; i++)
+        public static List<Cliente> GetListaClienti()
+        {
+            List<Cliente> res = null;
+            ISession sess = OpenConnection();
+            using (sess.BeginTransaction())
             {
-                int[] disp = new int[4] { 0, 0, 0, 0};
-                foreach (Attrezzatura a in elencoAttrezzatura)
-                    if (a.IsLibero(hour, hour.AddHours(1)))
-                    {
-                        switch(a.Tipo) {
-                            case ("barcaVela"): disp[0]++; break;
-                            case ("canoa"): disp[1]++; break;
-                            case ("windsurf"): disp[2]++; break;
-                            case ("sup"): disp[3]++; break;
-                        }
-                    }
-                result.Add(hour, disp);
+                ICriteria criteria = sess.CreateCriteria<Cliente>();
+                try
+                {
+                    res = (List<Cliente>)criteria.List<Cliente>();
+
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
             }
-            return result;
+            return res;
+        }
+
+        public static List<Attrezzatura> GetListaAttrezzature()
+        {
+            List<Attrezzatura> res = null;
+            ISession sess = OpenConnection();
+            using (sess.BeginTransaction())
+            {
+                ICriteria criteria = sess.CreateCriteria<Attrezzatura>();
+                try
+                {
+                    res = (List<Attrezzatura>)criteria.List<Attrezzatura>();
+
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+            return res;
+        }
+
+        public static List<Istruttore> GetListaIstruttori()
+        {
+            List<Istruttore> res = null;
+            ISession sess = OpenConnection();
+            using (sess.BeginTransaction())
+            {
+                ICriteria criteria = sess.CreateCriteria<Istruttore>();
+                try
+                {
+                    res = (List<Istruttore>)criteria.List<Istruttore>();
+
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+            return res;
+        }
+
+        public static List<Noleggio> GetListaNoleggi()
+        {
+            List<Noleggio> res = null;
+            ISession sess = OpenConnection();
+            using (sess.BeginTransaction())
+            {
+                ICriteria criteria = sess.CreateCriteria<Noleggio>();
+                try
+                {
+                    res = (List<Noleggio>)criteria.List<Noleggio>();
+
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+            return res;
+        }
+
+        public static List<Lezione> GetListaLezioni()
+        {
+            List<Lezione> res = null;
+            ISession sess = OpenConnection();
+            using (sess.BeginTransaction())
+            {
+                ICriteria criteria = sess.CreateCriteria<Lezione>();
+                try
+                {
+                    res = (List<Lezione>)criteria.List<Lezione>();
+
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+            return res;
         }
 
 
-        public HashSet<Attrezzatura> getDbAttrezzatura(DbConnection conn)
-        {
-            throw new NotImplementedException();
-        }
 
-        public HashSet<Cliente> getDbClienti(DbConnection conn)
+        public Noleggio NoloById(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public HashSet<Istruttore> getDbIstruttori(DbConnection conn)
-        {
-            throw new NotImplementedException();
+            foreach (Noleggio n in elencoNoleggi)
+            {
+                if (n.Id == id)
+                    return n;
+            }
+            return null;
         }
     }
 }

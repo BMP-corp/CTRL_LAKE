@@ -66,7 +66,7 @@ namespace CTRL_LAKE.Models
             set { _fine = value; }
         }
 
-        public List<DettaglioNoleggio> DettaglioNoleggio
+        public List<DettaglioNoleggio> ElencoDettagli
         {
             get { return _elencoDettagli; }
             

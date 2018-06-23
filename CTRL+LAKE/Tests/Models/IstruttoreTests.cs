@@ -14,7 +14,7 @@ namespace CTRL_LAKE.Models.Tests
         [TestInitialize]
         public void Initialize()
         {
-            i = new Istruttore("Fra", "Mazzu", "fra.maz.1", new DateTime(1996,4,1), "framaz@mail.it", "3334445556", "fakeIban", "barcaVela");
+            i = new Istruttore("Fra", "Mazzu", "fra.maz.1", new DateTime(1996,4,1), "framaz@mail.it", "3334445556", "fakeIban", "barcaVela", "pomeriggio");
             //c.Aggiungi(new DateTime(2018, 06, 15, 9, 0, 0), new DateTime(2018, 06, 15, 11, 0, 0));  // 15/06 9-11
             //c.Aggiungi(new DateTime(2018, 06, 15, 12, 0, 0), new DateTime(2018, 06, 15, 13, 0, 0)); // 15/06 12-13
             //c.Aggiungi(new DateTime(2018, 06, 16, 9, 0, 0), new DateTime(2018, 06, 16, 11, 0, 0));  // 16/06 9-11

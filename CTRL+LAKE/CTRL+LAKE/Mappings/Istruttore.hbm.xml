@@ -3,13 +3,16 @@
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
                    assembly="CTRL+LAKE"
                    namespace="CTRL_LAKE.Models">
-  <class name="Cliente" table="UTENTI">
+  <class name="Istruttore" table="UTENTI">
     <id name="Username" column="username" />
     <property name="Nome" column="nome"/>
     <property name="Cognome" column="cognome"/>
     <property name="DataNascita" column="datanascita"/>
     <property name="Telefono" column="telefono"/>
     <property name="Email" column="email"/>
+    <property name="Iban" column="iban"/>
+    <property name="Attivita" column="attivita"/>
+    <property name="Orario" column="orario"/>
     
   </class>
 </hibernate-mapping>

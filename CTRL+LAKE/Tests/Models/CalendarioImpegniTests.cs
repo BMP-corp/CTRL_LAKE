@@ -17,10 +17,10 @@ namespace CTRL_LAKE.Models.Tests
         [TestInitialize]
         public void Initialize()
         {
-            c1 = new CalendarioImpegni();
-            i1 = new Impegno(new DateTime(2018, 06, 15, 9, 0, 0), new DateTime(2018, 06, 15, 11, 0, 0));  // 15/06 9-11
-            i2 = new Impegno(new DateTime(2018, 06, 15, 12, 0, 0), new DateTime(2018, 06, 15, 13, 0, 0)); // 15/06 12-13
-            i3 = new Impegno(new DateTime(2018, 06, 16, 9, 0, 0), new DateTime(2018, 06, 16, 11, 0, 0));  // 16/06 9-11
+            c1 = new CalendarioImpegni("1001");
+            i1 = new Impegno(new DateTime(2018, 06, 15, 9, 0, 0), new DateTime(2018, 06, 15, 11, 0, 0), "1001");  // 15/06 9-11
+            i2 = new Impegno(new DateTime(2018, 06, 15, 12, 0, 0), new DateTime(2018, 06, 15, 13, 0, 0), "1001"); // 15/06 12-13
+            i3 = new Impegno(new DateTime(2018, 06, 16, 9, 0, 0), new DateTime(2018, 06, 16, 11, 0, 0), "1001");  // 16/06 9-11
         }
 
         [TestMethod()]

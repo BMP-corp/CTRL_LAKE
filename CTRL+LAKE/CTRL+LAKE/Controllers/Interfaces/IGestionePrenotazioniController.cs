@@ -10,9 +10,9 @@ namespace CTRL_LAKE.Controllers.Interfaces
 {
     interface IGestionePrenotazioniController
     {
-        HashSet<Cliente> getDbClienti(DbConnection conn);
-        HashSet<Attrezzatura> getDbAttrezzatura(DbConnection conn);
-        HashSet<Istruttore> getDbIstruttori(DbConnection conn);
+        //HashSet<Cliente> getDbClienti(DbConnection conn);
+        //HashSet<Attrezzatura> getDbAttrezzatura(DbConnection conn);
+        //HashSet<Istruttore> getDbIstruttori(DbConnection conn);
 
     }
 }
