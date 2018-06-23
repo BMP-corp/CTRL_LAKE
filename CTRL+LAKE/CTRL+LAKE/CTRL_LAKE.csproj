@@ -167,6 +167,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\EffettuaNoloController.cs" />
     <Compile Include="Controllers\GestioneAttrezzaturaController.cs" />
     <Compile Include="Controllers\GestionePrenotazioniController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -224,6 +225,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\utils.js" />
+    <Content Include="Views\EffettuaNolo\noleggio.html" />
     <Content Include="Views\GestioneAttrezzatura\gestioneattrezzatura.html" />
     <Content Include="Views\GestionePrenotazioni\homecliente.html" />
     <Content Include="Web.config">
@@ -244,6 +246,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\GestioneAttrezzatura\GestioneAttrezzatura.cshtml" />
     <Content Include="Views\GestionePrenotazioni\HomeCliente.cshtml" />
+    <Content Include="Views\EffettuaNolo\EffettuaNolo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

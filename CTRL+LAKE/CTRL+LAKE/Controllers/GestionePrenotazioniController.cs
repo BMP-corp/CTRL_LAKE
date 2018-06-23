@@ -23,6 +23,8 @@ namespace CTRL_LAKE.Controllers
 
         public HashSet<Lezione> ElencoLezioni { get => elencoLezioni; set => elencoLezioni = value; }
         public HashSet<Attrezzatura> ElencoAttrezzatura { get => elencoAttrezzatura; set => elencoAttrezzatura = value; }
+        public static HashSet<Cliente> ElencoClienti { get => elencoClienti; set => elencoClienti = value; }
+        public static HashSet<Noleggio> ElencoNoleggi { get => elencoNoleggi; set => elencoNoleggi = value; }
 
         /*public GestionePrenotazioniController()
         {
@@ -41,10 +43,10 @@ namespace CTRL_LAKE.Controllers
             ElencoAttrezzatura.Add(new Attrezzatura("barcaVela", newId(), 5));
             ElencoAttrezzatura.Add(new Attrezzatura("canoa", newId(), 2));
             Cliente c = new Cliente("Michele", "Campa", "michele.campa.19", new DateTime(1996, 8, 11), "mc@ampa.it", "123456789");
-            elencoClienti.Add(c);
+            ElencoClienti.Add(c);
             Noleggio nol = new Noleggio(newId(), c, new DateTime(2018, 6, 28, 10, 0, 0), new DateTime(2018, 6, 28, 11, 0, 0));
             nol.AddDettaglio(new DettaglioNoleggio(nol.Id, 4, a, 45, new DateTime(2018, 6, 28, 10, 0, 0), new DateTime(2018, 6, 28, 11, 0, 0)));
-            elencoNoleggi.Add(nol);
+            ElencoNoleggi.Add(nol);
             initialized = true;
         }
 
@@ -64,7 +66,7 @@ namespace CTRL_LAKE.Controllers
             }
             var username = Request.QueryString["username"];
             Cliente c = null;
-            foreach (Cliente c1 in elencoClienti)
+            foreach (Cliente c1 in ElencoClienti)
             {
                 if (c1.Username.Equals(username))
                 {
@@ -80,7 +82,7 @@ namespace CTRL_LAKE.Controllers
                 {
                     int daEliminare = Int32.Parse(Request.Form["todelete"]);
                     Noleggio n = null;
-                    foreach (Noleggio nol in elencoNoleggi)
+                    foreach (Noleggio nol in ElencoNoleggi)
                         if (nol.Id == daEliminare)
                         {
                             n = nol; break;
@@ -91,7 +93,7 @@ namespace CTRL_LAKE.Controllers
                         n.DettaglioNoleggio[i].Elimina(n.Inizio, n.Fine);
                         n.RimuoviDettaglio(n.DettaglioNoleggio[i]);
                     }
-                    elencoNoleggi.Remove(n);
+                    ElencoNoleggi.Remove(n);
                     ViewData["Message"] = "Prenotazione rimossa!";
                 } catch (Exception e) {
                     System.Diagnostics.Debug.WriteLine(e.Message);
@@ -99,7 +101,7 @@ namespace CTRL_LAKE.Controllers
                 }
             }
                 List<Noleggio> noleggi = new List<Noleggio>();
-            foreach (Noleggio nol in elencoNoleggi)
+            foreach (Noleggio nol in ElencoNoleggi)
             {
                 if (nol.Cliente.Equals(c))
                     noleggi.Add(nol);
@@ -107,6 +109,29 @@ namespace CTRL_LAKE.Controllers
             ViewData["Cliente"] = c;
             ViewData["Noleggi"] = noleggi;
             return View();
+        }
+
+
+        public Dictionary<DateTime, int[]> GetMappaDisponibilita(DateTime giorno) //le key indicano l'ora di inizio
+        {                                                          //di una fascia oraria
+            Dictionary<DateTime, int[]> result = new Dictionary<DateTime, int[]>();
+            DateTime hour = new DateTime(giorno.Year, giorno.Month, giorno.Day, 9, 0, 0);
+            for (int i=0; i<10; i++)
+            {
+                int[] disp = new int[4] { 0, 0, 0, 0};
+                foreach (Attrezzatura a in elencoAttrezzatura)
+                    if (a.IsLibero(hour, hour.AddHours(1)))
+                    {
+                        switch(a.Tipo) {
+                            case ("barcaVela"): disp[0]++; break;
+                            case ("canoa"): disp[1]++; break;
+                            case ("windsurf"): disp[2]++; break;
+                            case ("sup"): disp[3]++; break;
+                        }
+                    }
+                result.Add(hour, disp);
+            }
+            return result;
         }
 
 
