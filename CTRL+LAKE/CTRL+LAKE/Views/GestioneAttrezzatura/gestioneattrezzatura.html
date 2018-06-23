@@ -1,10 +1,4 @@
-﻿@model CTRL_LAKE.Models.Attrezzatura
-@{
-    var elenco = ViewData["MapAttrezzature"] as Dictionary<string, int[]>;
-    var defaultMin = 0 - elenco["barcaVela"][1];
-    string message = ViewData["Message"] as string;
-}
-<!doctype html>
+﻿<!doctype html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -14,11 +8,7 @@
     <link rel="stylesheet" href="css/standardize.css">
     <link rel="stylesheet" href="css/gestioneattrezzatura-grid.css">
     <link rel="stylesheet" href="css/gestioneattrezzatura.css">
-
-    <script src="~/Scripts/utils.js" type="text/javascript"></script>
-    <script src="~/Scripts/gestioneAttrezzatura.js" type="text/javascript"></script>
 </head>
-
 <body class="body page-gestioneattrezzatura clearfix">
     <div class="centrovelicostyle centrovelicoinsidestyle element element-1"></div>
     <p class="centrovelicostyle centrovelicoinsidestyle text text-1"><b>GESTIONE ATTREZZATURA</b></p>
@@ -79,46 +69,101 @@
                         vertical-align: top
                     }
             </style>
-            <!-- ***** TABELLA CON QUANTITA' ATTREZZATURE ***** -->
             <table class="tg">
                 <tr>
-                    @foreach (string tipo in elenco.Keys)
-                {
-                    <th class="tg-amwm">@tipo</th>
-            }
+                    <th class="tg-amwm">Barche Tot</th>
+                    <th class="tg-amwm">Canoe Tot</th>
+                    <th class="tg-amwm">Windsurf Tot</th>
+                    <th class="tg-amwm">Sup Tot</th>
                 </tr>
                 <tr>
-                    @foreach (string tipo in elenco.Keys)
-                {
-                    <td class="tg-baqh"> totali: @elenco[tipo][0] , cancellabili: @elenco[tipo][1]</td>
-            }
+                    <td class="tg-baqh">4(2)</td>
+                    <td class="tg-baqh">2(0)</td>
+                    <td class="tg-baqh">6(5)</td>
+                    <td class="tg-baqh">4(4)</td>
                 </tr>
             </table>
         </div>
         <p class="centrovelicostyle centrovelicoinsidestyle text text-4">AGGIORNAMENTO ATTREZZATURA:</p>
         <div class="centrovelicostyle centrovelicoinsidestyle element"></div>
-        <p class="text text-5">Tipologia: </p>
-        <!-- ***** BOX SELEZIONE ATTREZZATURA DA AGGIORNARE ***** -->
-        <form id="aggiornaAttr" action="/GestioneAttrezzatura/GestioneAttrezzatura" method="post">
-            <select class="_select _select-1" name="tipo_attrezzatura" onchange="aggiornaQuantita(this, myGetElementById('resDiv'))">
-                @foreach (string tipo in elenco.Keys)
-                {
-                    if (tipo.Equals("barcaVela"))
-                    {
-                        <option value="@tipo" nmin="@elenco[tipo][1]" selected="selected">@tipo</option>
-                    }
-                    else
-                    {
-                        <option value="@tipo" nmin="@elenco[tipo][1]">@tipo</option>
-                    }
-                }
-            </select>
-            <p class="text text-6">Numero: </p>
-            <span id="resDiv"><input type="number" class="_select _select-2" name="quantity" min="@defaultMin" required/></span>
-            <input type="submit" id="aggiorna" value="AGGIORNA" class="centrovelicostyle centrovelicoinsidestyle _button" />
-        </form>
-        <br />
-        <p>@message</p>
+        <p class="text text-5">Tipologia</p>
+        <select class="_select _select-1" name="Tipo Attrezzatura">
+            <option value="Barca">Barca</option>
+        </select>
+        <p class="text text-6">Numero</p>
+        <select class="_select _select-2">
+            <option value="1">1</option>
+        </select>
+        <button class="centrovelicostyle centrovelicoinsidestyle _button">Aggiorna</button>
     </div>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+<!--
+
+
+@model CTRL_LAKE.Models.Attrezzatura
+@{
+    var elenco = ViewData["MapAttrezzature"] as Dictionary<string, int[]>
+    ;
+    var defaultMin = 0-elenco["barcaVela"][1];
+    }
+
+    <!DOCTYPE html>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>GestioneAttrezzatura</title>
+        <script src="~/Scripts/utils.js" type="text/javascript"></script>
+        <script src="~/Scripts/gestioneAttrezzatura.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <h2>Gestione dell' Attrezzatura</h2>
+        <div>
+            <ul id="grid_attrezzatura">
+
+                @foreach (string tipo in elenco.Keys)
+                {
+                <li> [ @tipo , totali: @elenco[tipo][0] , cancellabili: @elenco[tipo][1] ]</li>
+                }
+            </ul>
+
+            <fieldset>
+                <legend>Aggiornamento</legend>
+                <form id="aggiornaAttr">
+                    <label>Seleziona il tipo di attrezzatura: </label>
+                    <select name="daAggiornare" onchange="aggiornaQuantita(this, myGetElementById('resDiv'))">
+                        @foreach(string tipo in elenco.Keys)
+                        {
+                        if (tipo.Equals("barcaVela"))
+                        {
+                        <option id="@tipo" value="@elenco[tipo][1]" selected="selected">@tipo</option>
+                        }
+                        else
+                        {
+                        <option id="@tipo" value="@elenco[tipo][1]">@tipo</option>
+                        }
+                        }
+                    </select>
+                    <br />
+                    <label>Quantit&agrave; da aggiornare: </label>
+                    <span id="resDiv"><input type="number" style="width: 40px" name="quantity" min="@defaultMin" /></span>
+                    <input type="submit" id="aggiorna" value="AGGIORNA" />
+                </form>
+            </fieldset>
+
+
+        </div>
+    </body>
+</html>
+
+    -->

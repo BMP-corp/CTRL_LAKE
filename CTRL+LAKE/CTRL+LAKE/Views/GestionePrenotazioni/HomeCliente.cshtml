@@ -1,0 +1,131 @@
+﻿@model CTRL_LAKE.Models.Noleggio
+@{
+    Layout = null;
+    var elencoNoleggi = ViewData["Noleggi"] as List<CTRL_LAKE.Models.Noleggio>;
+    var cliente = ViewData["Cliente"] as CTRL_LAKE.Models.Cliente;
+    var message = ViewData["Message"] as string;
+}
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+    <title>Home Cliente</title>
+    <link href="http://fonts.googleapis.com/css?family=Kite+One:400,400|Fauna+One:400|Ubuntu:300," rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/standardize.css">
+    <link rel="stylesheet" href="css/homecliente-grid.css">
+    <link rel="stylesheet" href="css/homecliente.css">
+</head>
+<body class="body page-homecliente clearfix">
+    <div class="element"></div>
+    <p class="text text-1"><span><b>HOME CLIENTE</b></span></p>
+    <a href="/Home/Index" > <input type="button" value="Logout" class="_button _button-1"/> </a>
+    <p class="text text-2">Benvenuto,&nbsp;</p>
+    <div class="wrapper wrapper-1"><text>@cliente.Nome @cliente.Cognome</text></div>
+    <div class="container container-1 clearfix">
+        <p class="text text-3">PRENOTAZIONI ATTIVE:</p>
+        <div class="wrapper">
+            <style type="text/css">
+
+                .tg {
+                    border-collapse: collapse;
+                    border-spacing: 0;
+                    border-color: #aaa;
+                    width: 100%
+                }
+
+                    .tg td {
+                        font-family: Arial, sans-serif;
+                        font-size: 14px;
+                        padding: 10px 5px;
+                        border-style: solid;
+                        border-width: 1px;
+                        overflow: hidden;
+                        word-break: normal;
+                        border-color: #aaa;
+                        color: #333;
+                        background-color: #fff;
+                    }
+
+                    .tg th {
+                        font-family: Arial, sans-serif;
+                        font-size: 14px;
+                        font-weight: normal;
+                        padding: 10px 5px;
+                        border-style: solid;
+                        border-width: 1px;
+                        overflow: hidden;
+                        word-break: normal;
+                        border-color: #aaa;
+                        color: #fff;
+                        background-color: #f38630;
+                    }
+
+                    .tg .tg-baqh {
+                        text-align: center;
+                        vertical-align: top
+                    }
+
+                    .tg .tg-amwm {
+                        font-weight: bold;
+                        text-align: center;
+                        vertical-align: top
+                    }
+
+                    .tg .tg-yw4l {
+                        vertical-align: top
+                    }
+            </style>
+
+            <form id="grid" action="/GestionePrenotazioni/HomeCliente?username=@cliente.Username" method="post">
+                <table class="tg">
+                    <tr>
+                        <th class="tg-amwm">Data</th>
+                        <th class="tg-amwm">Orario</th>
+                        <th class="tg-amwm">Attrezzatura</th>
+                        <th class="tg-amwm">Istruttore</th>
+                        <th class="tg-amwm">&nbsp;</th>
+                    </tr>
+                    @foreach (CTRL_LAKE.Models.Noleggio n in elencoNoleggi)
+                    {
+                        <tr>
+                            <td class="tg-baqh">@n.Inizio.Date.ToString()</td>
+                            <td class="tg-baqh">@n.Inizio.Hour:00 - @n.Fine.Hour:00</td>
+                            @{  string attrezzatura = "";
+                                foreach (CTRL_LAKE.Models.DettaglioNoleggio dn in n.DettaglioNoleggio)
+                                {
+                                    attrezzatura += (dn.Attrezzatura.Tipo + ", ");
+                                }
+                                if (attrezzatura.Length > 3)
+                                {
+                                    attrezzatura.Substring(0, attrezzatura.Length - 3);
+                                }
+                            }
+                            <td class="tg-baqh">@attrezzatura</td>
+                            <td class="tg-baqh">&nbsp;</td>
+                            <td class="tg-baqh"><input name="todelete" type="radio" value="@n.Id" required/></td>
+                        </tr>
+                    }
+                    <tr>
+                        <td class="tg-baqh">&nbsp;</td>
+                        <td class="tg-baqh">&nbsp;</td>
+                        <td class="tg-baqh">&nbsp;</td>
+                        <td class="tg-baqh">&nbsp;</td>
+                        <td class="tg-baqh">&nbsp;</td>
+                    </tr>
+                </table>
+                <input type="submit" class="_button _button-4" value="Cancella Prenotazione"></input>
+            </form>
+            <p>Si ricorda che il termine effettivo delle attività è 10 minuti prima dell'orario indicato, per consentire una riconsegna puntuale dei natanti.</p>
+        </div>
+            <p class="text text-4">Per cancellare una prenotazione, selezionala tramite l'apposita spunta</p>
+    </div>
+    <div class="container container-2 clearfix">
+        <button onClick="window.location='noleggio.html';" class="_button _button-2">Prenota Noleggio</button>
+        <button onClick="window.location='prenotalezione.html';" class="_button _button-3">Prenota Lezione</button>
+        <button onClick="window.location='modificapw.html';" class="_button _button-5">Modifica Password</button>
+    </div>
+    <p>@message</p>
+</body>
+</html>

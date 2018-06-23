@@ -30,7 +30,10 @@ namespace CTRL_LAKE.Models
             try
             {
                 _attrezzatura.Riserva(inizio, fine, utilizzatori);
-            } catch (Exception e) { throw e; }
+            } catch (Exception e)
+            {
+                throw e;
+            }
             _utilizzatori = utilizzatori;
             _costo = costo;
 
@@ -59,5 +62,16 @@ namespace CTRL_LAKE.Models
             return result;
         }
 
+        public void Elimina(DateTime inizio, DateTime fine)
+        {
+            try
+            {
+                _attrezzatura.Libera(inizio, fine);
+            } catch (Exception e)
+            {
+                throw e;
+            }
+        }
+        
     }
 }

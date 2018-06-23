@@ -22,6 +22,17 @@ namespace CTRL_LAKE.Controllers
         {
             if (!initialized)
                 init();
+            ViewData["Message"] = "";
+            if (Request.RequestType.Equals("POST"))
+            {
+                string tipoDaAggiornare = Request.Form["tipo_attrezzatura"];
+                int quantita = Int32.Parse(Request.Form["quantity"]);
+                /*** operazioni sul model ***/
+                map[tipoDaAggiornare][0] += quantita;
+                map[tipoDaAggiornare][1] += quantita;
+                /****************************/
+                ViewData["Message"] = "Operazione Completata";
+            }
             ViewData["MapAttrezzature"] = map;
             return View();
         }
