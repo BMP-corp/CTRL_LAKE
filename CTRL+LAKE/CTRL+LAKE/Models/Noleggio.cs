@@ -60,7 +60,7 @@ namespace CTRL_LAKE.Models
             set { _inizio = value; }
         }
 
-        public DateTime fine
+        public DateTime Fine
         {
             get { return _fine; }
             set { _fine = value; }
@@ -75,24 +75,34 @@ namespace CTRL_LAKE.Models
         /****BUSINESS****/
         public void AddDettaglio(DettaglioNoleggio dettaglio)
         {
-            bool giaPresente = false;
+            //bool giaPresente = false;
             if (dettaglio != null)
             {
-                foreach (DettaglioNoleggio dt in this._elencoDettagli)
-                    if (dt.Id == dettaglio.Id)
-                    {
-                        giaPresente = true;
-                        break;
-                    }
-                if (giaPresente)
-                    throw new Exception("Dettaglio già inserito");
-                else
+                //foreach (DettaglioNoleggio dt in this._elencoDettagli)
+                //    if (dt.Id == dettaglio.Id)
+                //    {
+                //        giaPresente = true;
+                //        break;
+                //    }
+                //if (giaPresente)
+                //    throw new Exception("Dettaglio già inserito");
+                //else
                     this._elencoDettagli.Add(dettaglio);
             }   
         }
 
         public void RimuoviDettaglio(DettaglioNoleggio dettaglio)
         {
+            //foreach (DettaglioNoleggio dn in _elencoDettagli)
+            //    if (dn.Equals(dettaglio))
+            //    {
+            //        bool rimosso = _elencoDettagli.Remove(dn);
+            //        if (rimosso == false)
+            //        {
+            //            throw new Exception("Dettaglio non presente nella lista");
+            //        }
+            //    }
+
             if (!this._elencoDettagli.Remove(dettaglio))
                 throw new Exception("Dettaglio non presente nella lista");
         }

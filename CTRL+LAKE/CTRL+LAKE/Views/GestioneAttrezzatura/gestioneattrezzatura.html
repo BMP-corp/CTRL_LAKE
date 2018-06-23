@@ -1,0 +1,169 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+    <title>Gestione Attrezzatura</title>
+    <link href="http://fonts.googleapis.com/css?family=Fauna+One:400|Ubuntu:300," rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/standardize.css">
+    <link rel="stylesheet" href="css/gestioneattrezzatura-grid.css">
+    <link rel="stylesheet" href="css/gestioneattrezzatura.css">
+</head>
+<body class="body page-gestioneattrezzatura clearfix">
+    <div class="centrovelicostyle centrovelicoinsidestyle element element-1"></div>
+    <p class="centrovelicostyle centrovelicoinsidestyle text text-1"><b>GESTIONE ATTREZZATURA</b></p>
+    <button onClick="window.location='homeadmin.html';" class="centrovelicostyle centrovelicoinsidestyle _button _button-1">Back</button>
+    <div class="centrovelicostyle centrovelicoinsidestyle container clearfix">
+        <p class="centrovelicostyle centrovelicoinsidestyle text text-2">ELENCO ATTREZZATURA:</p>
+        <div class="centrovelicostyle centrovelicoinsidestyle element"></div>
+        <p class="text text-3">Tra parentesti sono indicate le attezzature aggiornabili libere da noleggi, rispetto a quelle totali.&nbsp;</p>
+        <div class="wrapper">
+            <style type="text/css">
+
+                .tg {
+                    border-collapse: collapse;
+                    border-spacing: 0;
+                    border-color: #aaa;
+                    width: 100%
+                }
+
+                    .tg td {
+                        font-family: Arial, sans-serif;
+                        font-size: 14px;
+                        padding: 10px 5px;
+                        border-style: solid;
+                        border-width: 1px;
+                        overflow: hidden;
+                        word-break: normal;
+                        border-color: #aaa;
+                        color: #333;
+                        background-color: #fff;
+                    }
+
+                    .tg th {
+                        font-family: Arial, sans-serif;
+                        font-size: 14px;
+                        font-weight: normal;
+                        padding: 10px 5px;
+                        border-style: solid;
+                        border-width: 1px;
+                        overflow: hidden;
+                        word-break: normal;
+                        border-color: #aaa;
+                        color: #fff;
+                        background-color: #f38630;
+                    }
+
+                    .tg .tg-baqh {
+                        text-align: center;
+                        vertical-align: top
+                    }
+
+                    .tg .tg-amwm {
+                        font-weight: bold;
+                        text-align: center;
+                        vertical-align: top
+                    }
+
+                    .tg .tg-yw4l {
+                        vertical-align: top
+                    }
+            </style>
+            <table class="tg">
+                <tr>
+                    <th class="tg-amwm">Barche Tot</th>
+                    <th class="tg-amwm">Canoe Tot</th>
+                    <th class="tg-amwm">Windsurf Tot</th>
+                    <th class="tg-amwm">Sup Tot</th>
+                </tr>
+                <tr>
+                    <td class="tg-baqh">4(2)</td>
+                    <td class="tg-baqh">2(0)</td>
+                    <td class="tg-baqh">6(5)</td>
+                    <td class="tg-baqh">4(4)</td>
+                </tr>
+            </table>
+        </div>
+        <p class="centrovelicostyle centrovelicoinsidestyle text text-4">AGGIORNAMENTO ATTREZZATURA:</p>
+        <div class="centrovelicostyle centrovelicoinsidestyle element"></div>
+        <p class="text text-5">Tipologia</p>
+        <select class="_select _select-1" name="Tipo Attrezzatura">
+            <option value="Barca">Barca</option>
+        </select>
+        <p class="text text-6">Numero</p>
+        <select class="_select _select-2">
+            <option value="1">1</option>
+        </select>
+        <button class="centrovelicostyle centrovelicoinsidestyle _button">Aggiorna</button>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+<!--
+
+
+@model CTRL_LAKE.Models.Attrezzatura
+@{
+    var elenco = ViewData["MapAttrezzature"] as Dictionary<string, int[]>
+    ;
+    var defaultMin = 0-elenco["barcaVela"][1];
+    }
+
+    <!DOCTYPE html>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>GestioneAttrezzatura</title>
+        <script src="~/Scripts/utils.js" type="text/javascript"></script>
+        <script src="~/Scripts/gestioneAttrezzatura.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <h2>Gestione dell' Attrezzatura</h2>
+        <div>
+            <ul id="grid_attrezzatura">
+
+                @foreach (string tipo in elenco.Keys)
+                {
+                <li> [ @tipo , totali: @elenco[tipo][0] , cancellabili: @elenco[tipo][1] ]</li>
+                }
+            </ul>
+
+            <fieldset>
+                <legend>Aggiornamento</legend>
+                <form id="aggiornaAttr">
+                    <label>Seleziona il tipo di attrezzatura: </label>
+                    <select name="daAggiornare" onchange="aggiornaQuantita(this, myGetElementById('resDiv'))">
+                        @foreach(string tipo in elenco.Keys)
+                        {
+                        if (tipo.Equals("barcaVela"))
+                        {
+                        <option id="@tipo" value="@elenco[tipo][1]" selected="selected">@tipo</option>
+                        }
+                        else
+                        {
+                        <option id="@tipo" value="@elenco[tipo][1]">@tipo</option>
+                        }
+                        }
+                    </select>
+                    <br />
+                    <label>Quantit&agrave; da aggiornare: </label>
+                    <span id="resDiv"><input type="number" style="width: 40px" name="quantity" min="@defaultMin" /></span>
+                    <input type="submit" id="aggiorna" value="AGGIORNA" />
+                </form>
+            </fieldset>
+
+
+        </div>
+    </body>
+</html>
+
+    -->

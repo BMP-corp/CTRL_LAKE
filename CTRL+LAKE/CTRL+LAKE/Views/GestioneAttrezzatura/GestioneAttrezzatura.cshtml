@@ -1,0 +1,124 @@
+﻿@model CTRL_LAKE.Models.Attrezzatura
+@{
+    var elenco = ViewData["MapAttrezzature"] as Dictionary<string, int[]>;
+    var defaultMin = 0 - elenco["barcaVela"][1];
+    string message = ViewData["Message"] as string;
+}
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+    <title>Gestione Attrezzatura</title>
+    <link href="http://fonts.googleapis.com/css?family=Fauna+One:400|Ubuntu:300," rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/standardize.css">
+    <link rel="stylesheet" href="css/gestioneattrezzatura-grid.css">
+    <link rel="stylesheet" href="css/gestioneattrezzatura.css">
+
+    <script src="~/Scripts/utils.js" type="text/javascript"></script>
+    <script src="~/Scripts/gestioneAttrezzatura.js" type="text/javascript"></script>
+</head>
+
+<body class="body page-gestioneattrezzatura clearfix">
+    <div class="centrovelicostyle centrovelicoinsidestyle element element-1"></div>
+    <p class="centrovelicostyle centrovelicoinsidestyle text text-1"><b>GESTIONE ATTREZZATURA</b></p>
+    <button onClick="window.location='homeadmin.html';" class="centrovelicostyle centrovelicoinsidestyle _button _button-1">Back</button>
+    <div class="centrovelicostyle centrovelicoinsidestyle container clearfix">
+        <p class="centrovelicostyle centrovelicoinsidestyle text text-2">ELENCO ATTREZZATURA:</p>
+        <div class="centrovelicostyle centrovelicoinsidestyle element"></div>
+        <p class="text text-3">Tra parentesti sono indicate le attezzature aggiornabili libere da noleggi, rispetto a quelle totali.&nbsp;</p>
+        <div class="wrapper">
+            <style type="text/css">
+
+                .tg {
+                    border-collapse: collapse;
+                    border-spacing: 0;
+                    border-color: #aaa;
+                    width: 100%
+                }
+
+                    .tg td {
+                        font-family: Arial, sans-serif;
+                        font-size: 14px;
+                        padding: 10px 5px;
+                        border-style: solid;
+                        border-width: 1px;
+                        overflow: hidden;
+                        word-break: normal;
+                        border-color: #aaa;
+                        color: #333;
+                        background-color: #fff;
+                    }
+
+                    .tg th {
+                        font-family: Arial, sans-serif;
+                        font-size: 14px;
+                        font-weight: normal;
+                        padding: 10px 5px;
+                        border-style: solid;
+                        border-width: 1px;
+                        overflow: hidden;
+                        word-break: normal;
+                        border-color: #aaa;
+                        color: #fff;
+                        background-color: #f38630;
+                    }
+
+                    .tg .tg-baqh {
+                        text-align: center;
+                        vertical-align: top
+                    }
+
+                    .tg .tg-amwm {
+                        font-weight: bold;
+                        text-align: center;
+                        vertical-align: top
+                    }
+
+                    .tg .tg-yw4l {
+                        vertical-align: top
+                    }
+            </style>
+            <!-- ***** TABELLA CON QUANTITA' ATTREZZATURE ***** -->
+            <table class="tg">
+                <tr>
+                    @foreach (string tipo in elenco.Keys)
+                {
+                    <th class="tg-amwm">@tipo</th>
+            }
+                </tr>
+                <tr>
+                    @foreach (string tipo in elenco.Keys)
+                {
+                    <td class="tg-baqh"> totali: @elenco[tipo][0] , cancellabili: @elenco[tipo][1]</td>
+            }
+                </tr>
+            </table>
+        </div>
+        <p class="centrovelicostyle centrovelicoinsidestyle text text-4">AGGIORNAMENTO ATTREZZATURA:</p>
+        <div class="centrovelicostyle centrovelicoinsidestyle element"></div>
+        <p class="text text-5">Tipologia: </p>
+        <!-- ***** BOX SELEZIONE ATTREZZATURA DA AGGIORNARE ***** -->
+        <form id="aggiornaAttr" action="/GestioneAttrezzatura/GestioneAttrezzatura" method="post">
+            <select class="_select _select-1" name="tipo_attrezzatura" onchange="aggiornaQuantita(this, myGetElementById('resDiv'))">
+                @foreach (string tipo in elenco.Keys)
+                {
+                    if (tipo.Equals("barcaVela"))
+                    {
+                        <option value="@tipo" nmin="@elenco[tipo][1]" selected="selected">@tipo</option>
+                    }
+                    else
+                    {
+                        <option value="@tipo" nmin="@elenco[tipo][1]">@tipo</option>
+                    }
+                }
+            </select>
+            <p class="text text-6">Numero: </p>
+            <span id="resDiv"><input type="number" class="_select _select-2" name="quantity" min="@defaultMin" required/></span>
+            <input type="submit" id="aggiorna" value="AGGIORNA" class="centrovelicostyle centrovelicoinsidestyle _button" />
+        </form>
+        <br />
+        <p>@message</p>
+    </div>
+</body>
+</html>
