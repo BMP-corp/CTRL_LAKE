@@ -29,7 +29,9 @@ namespace CTRL_LAKE.Models
             try
             {
                 i2 = new Impegno(inizio, fine, Id_user);
-            } catch (Exception e) { throw e; }
+            } catch (Exception e) {
+                throw e;
+            }
 
             
             foreach (Impegno i in this.Impegni)

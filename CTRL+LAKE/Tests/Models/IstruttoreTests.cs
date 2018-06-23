@@ -45,9 +45,10 @@ namespace CTRL_LAKE.Models.Tests
         [TestMethod()]
         public void IsLiberoTest()
         {
-            Assert.AreEqual(i.IsLibero(new DateTime(2018, 08, 15, 9, 0, 0), new DateTime(2018, 08, 15, 11, 0, 0)), true);
-            i.Riserva(new DateTime(2018, 06, 15, 9, 0, 0), new DateTime(2018, 06, 15, 11, 0, 0));
-            Assert.AreEqual(i.IsLibero(new DateTime(2018, 06, 15, 9, 0, 0), new DateTime(2018, 06, 15, 12, 0, 0)), false);
+            Assert.AreEqual(i.IsLibero(new DateTime(2018, 08, 15, 9, 0, 0), new DateTime(2018, 08, 15, 11, 0, 0)), false);
+            Assert.AreEqual(i.IsLibero(new DateTime(2018, 08, 15, 18, 0, 0), new DateTime(2018, 08, 15, 19, 0, 0)), true);
+            i.Riserva(new DateTime(2018, 06, 15, 18, 0, 0), new DateTime(2018, 06, 15, 19, 0, 0));
+            Assert.AreEqual(i.IsLibero(new DateTime(2018, 06, 15, 17, 0, 0), new DateTime(2018, 06, 15, 19, 0, 0)), false);
         }
 
         [TestMethod()]
@@ -71,8 +72,8 @@ namespace CTRL_LAKE.Models.Tests
         [TestMethod()]
         public void LiberaTest()
         {
-            i.Riserva(new DateTime(2018, 06, 15, 9, 0, 0), new DateTime(2018, 06, 15, 11, 0, 0));
-            i.Libera(new DateTime(2018, 06, 15, 9, 0, 0), new DateTime(2018, 06, 15, 11, 0, 0));
+            i.Riserva(new DateTime(2018, 06, 28, 16, 0, 0), new DateTime(2018, 06, 28, 17, 0, 0));
+            i.Libera(new DateTime(2018, 06, 28, 16, 0, 0), new DateTime(2018, 06, 28, 17, 0, 0));
         }
 
         [TestMethod()]

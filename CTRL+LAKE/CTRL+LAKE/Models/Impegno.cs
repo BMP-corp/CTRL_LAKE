@@ -43,10 +43,10 @@ namespace CTRL_LAKE.Models
 
         public override bool Equals(Object o)
         {
-            Impegno i2 = (Impegno)o;
+            Impegno i2 = (Impegno) o;
             bool result = ( this.Inizio.CompareTo(i2.Inizio) == 0
                 && this.Fine.CompareTo(i2.Fine) == 0 
-                && this._id_user.Equals(i2));
+                && this._id_user.Equals(i2.Id_user));
             return result;
         }
 

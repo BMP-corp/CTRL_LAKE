@@ -26,6 +26,7 @@ namespace CTRL_LAKE.Controllers
         public HashSet<Lezione> ElencoLezioni { get => elencoLezioni; set => elencoLezioni = value; }
         public HashSet<Attrezzatura> ElencoAttrezzatura { get => elencoAttrezzatura; set => elencoAttrezzatura = value; }
         public HashSet<Cliente> ElencoClienti { get => elencoClienti; set => elencoClienti = value; }
+        public HashSet<Noleggio> ElencoNoleggi { get => elencoNoleggi; set => elencoNoleggi = value; }
 
         /*public GestionePrenotazioniController()
         {
@@ -47,7 +48,7 @@ namespace CTRL_LAKE.Controllers
             ElencoClienti.Add(c);
             Noleggio nol = new Noleggio(NewId(), c, new DateTime(2018, 6, 28, 10, 0, 0), new DateTime(2018, 6, 28, 11, 0, 0));
             nol.AddDettaglio(new DettaglioNoleggio(nol.Id, 4, a, 45, new DateTime(2018, 6, 28, 10, 0, 0), new DateTime(2018, 6, 28, 11, 0, 0), "michele.campa.19"));
-            elencoNoleggi.Add(nol);
+            ElencoNoleggi.Add(nol);
             initialized = true;
         }
 
@@ -224,7 +225,7 @@ namespace CTRL_LAKE.Controllers
 
         public Noleggio NoloById(int id)
         {
-            foreach (Noleggio n in elencoNoleggi)
+            foreach (Noleggio n in ElencoNoleggi)
             {
                 if (n.Id == id)
                     return n;

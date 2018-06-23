@@ -40,6 +40,10 @@ namespace CTRL_LAKE.Models
             Iban = iban;
             Attivita = attivita;
             _impegni = new CalendarioImpegni(Username);
+            if (!orario.Equals("mattina") && !orario.Equals("pomeriggio"))
+            {
+                throw new Exception("tipo di orari istruttore non corretto");
+            }
             _orario = orario;
         }
 
@@ -57,6 +61,12 @@ namespace CTRL_LAKE.Models
         {
             bool result = true;
             Impegno richiesto = null;
+            if (_orario.Equals("mattina")
+                && fine.TimeOfDay.CompareTo(new TimeSpan(14, 0, 0)) >= 0)
+                return false;
+            if (_orario.Equals("pomeriggio")
+                && inizio.TimeOfDay.CompareTo(new TimeSpan(14, 0, 0)) <= 0)
+                return false;
             try
             {
                 richiesto = new Impegno(inizio, fine, Username);
@@ -87,7 +97,9 @@ namespace CTRL_LAKE.Models
             {
                 this._impegni.Rimuovi(inizio, fine);
             }
-            catch (Exception e) { throw e; }
+            catch (Exception e) {
+                throw e;
+            }
         }
 
     }

@@ -22,7 +22,7 @@ namespace CTRL_LAKE.Models
             Tipo = tipo;
             IdAttrezzatura = idAttrezzatura;
             Posti = posti;
-            _impegni = new CalendarioImpegni();
+            _impegni = new CalendarioImpegni(""+_idAttrezzatura);
         }
 
         public Attrezzatura() {
@@ -46,7 +46,7 @@ namespace CTRL_LAKE.Models
             Impegno richiesto = null;
             try
             {
-                richiesto = new Impegno(inizio, fine);
+                richiesto = new Impegno(inizio, fine, ""+_idAttrezzatura);
             } catch (Exception e) { throw e; }
             foreach (Impegno i in this.elencaImpegni())
                 if (i.Inizio.Day == inizio.Day)
